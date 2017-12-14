@@ -113,6 +113,13 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                         <?= $model->author->postsCount ?>
                     </span>
                 </small>
+                <?php
+                echo Html::img($model->author->getImageByPostCount(), [
+                    'title' => $model->author->postsCount,
+                    'width' => 20,
+                    'height' => 20,
+                ]);
+                ?>
             </div>
             <div class="popover-content podium-content">
 <?php if (isset($parent) && $parent): ?>
