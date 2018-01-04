@@ -14,6 +14,7 @@ use bizley\podium\widgets\Avatar;
 use bizley\podium\widgets\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\User as AppUser;
 
 $this->title = Yii::t('podium/view', 'Member View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('podium/view', 'Members List'), 'url' => ['members/index']];
