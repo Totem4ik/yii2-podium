@@ -101,6 +101,35 @@ if (!Podium::getInstance()->user->isGuest) {
                     <a href="<?= Url::to(['members/posts', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> <?= Yii::t('podium/view', 'Find all posts created by {name}', ['name' => Html::encode($model->podiumName)]) ?></a>
                 </p>
 <?php endif; ?>
+
+                <?php if (isset($model->inherited_id) && !empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
+					<hr/>
+					<div>
+						<p><b>Depression :</b></p>
+                        <?php
+                        foreach (AppUser::getUserDepressionImageList($model->inherited_id) as $imageId) {
+                            echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
+                                'width' => 50,
+                                'height' => 50,
+                            ]);
+                        }
+                        ?>
+					</div>
+                <?php endif; ?>
+                <?php if (isset($model->inherited_id) && !empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
+					<hr/>
+					<div>
+						<p><b>Anexiety :</b></p>
+                        <?php
+                        foreach (AppUser::getUserAnxietyImageList($model->inherited_id) as $imageId) {
+                            echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
+                                'width' => 50,
+                                'height' => 50,
+                            ]);
+                        }
+                        ?>
+					</div>
+                <?php endif; ?>
             </div>
 <?php if ($model->role == User::ROLE_MODERATOR && !empty($model->mods)): ?>
             <div class="panel-body">
