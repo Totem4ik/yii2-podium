@@ -25,13 +25,32 @@ $this->beginPage() ?>
 </head>
 <body>
 
-<?php $this->beginBody() ?>
-    <div class="container">
-        <?= $this->render('/elements/main/_navbar') ?>
-        <?= $this->render('/elements/main/_breadcrumbs') ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+<div class="eh_top_slider eh_clear_top_slider">
+    <div class="schedule-tab">
+        <div class="tab-list text-center">
+            <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
+        </div>
     </div>
+</div>
+
+<?php $this->beginBody() ?>
+        <header id="navigation">
+                <?= $this->render('/elements/main/_navbar') ?>
+        </header>
+
+        <div class="eh_content_wrapper">
+            <div class="eh_only_middle-content middle-content eh_middle_cont_top_padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <?= $this->render('/elements/main/_breadcrumbs') ?>
+                            <?= Alert::widget() ?>
+                            <?= $content ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?= $this->render('/elements/main/_footer') ?>
 <?php $this->endBody() ?>
 

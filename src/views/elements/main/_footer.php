@@ -10,9 +10,10 @@
 use bizley\podium\Podium;
 
 ?>
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Podium::getInstance()->podiumConfig->get('name') ?> <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+
+
+<footer class="eh_footer">
+    <div class="container text-center">
+        <p>© Copyright <?= date('Y') ?> <a href="#">Evolution Health</a>. All Rights Reserved.</p>
     </div>
 </footer>

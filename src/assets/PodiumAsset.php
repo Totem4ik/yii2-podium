@@ -20,7 +20,10 @@ class PodiumAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $css = ['podium.css'];
+    public $css = [
+        'podium.css',
+        'forum-styles.css',
+    ];
 
     /**
      * @inheritdoc

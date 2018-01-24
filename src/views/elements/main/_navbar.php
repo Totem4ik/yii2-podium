@@ -75,10 +75,10 @@ if (Podium::getInstance()->user->isGuest) {
 }
 
 NavBar::begin([
-    'brandLabel' => $podiumModule->podiumConfig->get('name'),
+    'brandLabel' => '<img src="'.Yii::getAlias('@web').'/uploads/dc_logo.png" />',
     'brandUrl' => ['forum/index'],
-    'options' => ['class' => 'navbar-inverse navbar-default', 'id' => 'top'],
-    'innerContainerOptions' => ['class' => 'container-fluid',]
+    'options' => ['class' => 'navbar navbar-fixed-top', 'id' => 'top'],
+    'innerContainerOptions' => ['class' => 'container',]
 ]);
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-right'],

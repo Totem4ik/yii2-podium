@@ -38,12 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					<a href="<?= Url::to(['members/threads', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> <?= Yii::t('podium/view', 'Show all threads started by me') ?></a>
 					<a href="<?= Url::to(['members/posts', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> <?= Yii::t('podium/view', 'Show all posts created by me') ?></a>
 				</p>
-                <?php if (!empty(User::getUserDepressionImageList())) : ?>
+                <?php if (!empty(User::getUserDepressionImageList($model->inherited_id))) : ?>
 					<hr/>
 					<div>
 						<p><b>Depression :</b></p>
                         <?php
-                        foreach (User::getUserDepressionImageList() as $imageId) {
+                        foreach (User::getUserDepressionImageList($model->inherited_id) as $imageId) {
                             echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
                                 'width' => 50,
                                 'height' => 50,
@@ -52,12 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?>
 					</div>
                 <?php endif; ?>
-                <?php if (!empty(User::getUserAnxietyImageList())) : ?>
+                <?php if (!empty(User::getUserAnxietyImageList($model->inherited_id))) : ?>
 					<hr/>
 					<div>
 						<p><b>Anexiety :</b></p>
                         <?php
-                        foreach (User::getUserAnxietyImageList() as $imageId) {
+                        foreach (User::getUserAnxietyImageList($model->inherited_id) as $imageId) {
                             echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
                                 'width' => 50,
                                 'height' => 50,
