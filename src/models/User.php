@@ -254,41 +254,41 @@ class User extends UserActiveRecord
 
         switch ($count) {
             case $count >= 10 && $count < 50:
-                $image = 'D1_on.png';
+                $image = 'star.png';
                 break;
             case $count >= 50 && $count < 150:
-                $image = 'D2_on.png';
+                $image = 'star_2.png';
                 break;
             case $count >= 150 && $count < 300:
-                $image = 'D3_on.png';
+                $image = 'star_3.png';
                 break;
             case $count >= 300 && $count < 500:
-                $image = 'D4_on.png';
+                $image = 'star_4.png';
                 break;
             case $count >= 500 && $count < 750:
-                $image = 'D5_on.png';
+                $image = 'silver_star_3.png';
                 break;
             case $count >= 750 && $count < 1000:
-                $image = 'D6_on.png';
+                $image = 'silver_star_5.png';
                 break;
             case $count >= 1000 && $count < 1500:
-                $image = 'D7_on.png';
+                $image = 'bronse_medal.png';
                 break;
             case $count >= 1500 && $count < 2000:
-                $image = 'D8_on.png';
+                $image = 'siver_medal.png';
                 break;
             case $count >= 2000 && $count < 3000:
-                $image = 'D9_on.png';
+                $image = 'gold_medal.png';
                 break;
             case $count >= 3000:
-                $image = 'D9_on.png';
+                $image = 'korona.png';
                 break;
             default:
                 $image = false;
                 break;
         }
 
-        return $image ? Yii::getAlias('@web') . '/uploads/logocup/' . $image : '';
+        return $image ? Yii::getAlias('@web') . '/uploads/forumAchivment/' . $image : '';
     }
 
     /**
