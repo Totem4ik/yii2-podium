@@ -22,14 +22,19 @@ class PodiumAsset extends AssetBundle
      */
     public $css = [
         'podium.css',
-        'forum-styles.css',
+		'forum-styles.css',
+		
+        
     ];
+	public $publishOptions = [
+        'forceCopy'=>true,
+      ];
 
     /**
      * @inheritdoc
      */
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        '\yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapPluginAsset',
     ];
 }
