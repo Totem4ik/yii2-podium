@@ -12,7 +12,8 @@ use bizley\podium\Podium;
 use bizley\podium\widgets\Avatar;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use \app\models\User;
+use \app\models\User as AppUser;
+use bizley\podium\models\User;
 
 $this->title = Yii::t('podium/view', 'My Profile');
 $this->params['breadcrumbs'][] = $this->title;
@@ -38,34 +39,36 @@ $this->params['breadcrumbs'][] = $this->title;
 					<a href="<?= Url::to(['members/threads', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> <?= Yii::t('podium/view', 'Show all threads started by me') ?></a>
 					<a href="<?= Url::to(['members/posts', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> <?= Yii::t('podium/view', 'Show all posts created by me') ?></a>
 				</p>
-                <?php if (!empty(User::getUserDepressionImageList($model->inherited_id))) : ?>
-					<hr/>
-					<div>
-						<p><b>Depression :</b></p>
-                        <?php
-                        foreach (User::getUserDepressionImageList($model->inherited_id) as $imageId) {
-                            echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
-                                'width' => 50,
-                                'height' => 50,
-                            ]);
-                        }
-                        ?>
-					</div>
-                <?php endif; ?>
-                <?php if (!empty(User::getUserAnxietyImageList($model->inherited_id))) : ?>
-					<hr/>
-					<div>
-						<p><b>Anexiety :</b></p>
-                        <?php
-                        foreach (User::getUserAnxietyImageList($model->inherited_id) as $imageId) {
-                            echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
-                                'width' => 50,
-                                'height' => 50,
-                            ]);
-                        }
-                        ?>
-					</div>
-                <?php endif; ?>
+				<?php if ($model->role != User::ROLE_ADMIN): ?>
+					<?php if (!empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
+						<hr/>
+						<div>
+							<p><b>Depression :</b></p>
+							<?php
+							foreach (AppUser::getUserDepressionImageList($model->inherited_id) as $imageId) {
+								echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
+									'width' => 50,
+									'height' => 50,
+								]);
+							}
+							?>
+						</div>
+					<?php endif; ?>
+					<?php if (!empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
+						<hr/>
+						<div>
+							<p><b>Anexiety :</b></p>
+							<?php
+							foreach (AppUser::getUserAnxietyImageList($model->inherited_id) as $imageId) {
+								echo Html::img(Yii::getAlias('@web'). '/uploads/logocup/D' . $imageId . '_on.png', [
+									'width' => 50,
+									'height' => 50,
+								]);
+							}
+							?>
+						</div>
+					<?php endif; ?>
+				<?php endif; ?>
 			</div>
 			<div class="panel-footer">
 				<ul class="list-inline">
