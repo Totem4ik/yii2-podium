@@ -205,6 +205,10 @@ class User extends UserActiveRecord
         return $this->username ?: 'user_' . $this->id;
     }
 
+	public function getMainUser () {
+		return $this->hasOne(Client::className(), ['id' => 'inherited_id']);
+	}
+
     /**
      * Returns Podium name tag.
      * @param bool $simple
