@@ -588,4 +588,8 @@ class Post extends PostActiveRecord
         }
         return $this->content;
     }
+
+	public static function getTotalPosts() {
+		return self::find()->count();
+	}
 }

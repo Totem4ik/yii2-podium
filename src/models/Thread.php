@@ -628,4 +628,8 @@ class Thread extends ThreadActiveRecord
         }
         return $this->post;
     }
+
+	public static function getTotalThreads() {
+		return self::find()->count();
+	}
 }
