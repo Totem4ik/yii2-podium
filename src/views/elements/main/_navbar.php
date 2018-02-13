@@ -13,77 +13,111 @@ use bizley\podium\rbac\Rbac;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use app\models\Client;
 
-$items = [['label' => Yii::t('podium/view', 'Home'), 'url' => ['forum/index']]];
+?>
+    <header id="navigation">
+        <div class="navbar navbar-fixed-top" role="banner">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <?= HTML::img(Client::LOGO_PATH_UPLOAD . $_SESSION['logo'], $options = ['title' => 'Main Logo', 'class' => ['img-responsive']]); ?>
+                    </a>
+                </div>
+                <nav id="main-menu" class="navbar-collapse navbar-right collapse" aria-expanded="false">
+                    <ul class="nav navbar-nav">
 
-$podiumModule = Podium::getInstance();
+                        <li class=""><?= Html::a('Home', ['forum/index'], ['class' => 'profile-link']) ?></li>
+                        <li class=""><?= Html::a('About', ['/clinic/about'], ['class' => 'profile-link']) ?></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><?= Html::a('Depression', ['/community/home']) ?></li>
+                                <li><?= Html::a('Anxiety', ['/community/home']) ?></li>
+                                <li><?= Html::a('Helping Fellow Members', ['/community/home']) ?></li>
+                            </ul>
+                        </li>
 
-if (Podium::getInstance()->user->isGuest) {
-    if (Podium::getInstance()->podiumConfig->get('members_visible')) {
-        $items[] = [
-            'label' => Yii::t('podium/view', 'Members'),
-            'url' => ['members/index'],
-            'active' => $this->context->id == 'members'
-        ];
-    }
-    if ($podiumModule->userComponent === true && $this->context->accessType === 1) {
-        if ($podiumModule->podiumConfig->get('registration_off') != '1') {
-            $items[] = ['label' => Yii::t('podium/view', 'Register'), 'url' => $podiumModule->registerUrl];
-        }
-        $items[] = ['label' => Yii::t('podium/view', 'Sign in'), 'url' => $podiumModule->loginUrl];
-    }
-} else {
-    $podiumUser = User::findMe();
-    $messageCount = $podiumUser->newMessagesCount;
-    $subscriptionCount = $podiumUser->subscriptionsCount;
 
-    if (User::can(Rbac::ROLE_ADMIN)) {
-        $items[] = [
-            'label' => Yii::t('podium/view', 'Administration'),
-            'url' => ['admin/index'],
-            'active' => $this->context->id == 'admin'
-        ];
-    }
-    $items[] = [
-        'label' => Yii::t('podium/view', 'Members'),
-        'url' => ['members/index'],
-        'active' => $this->context->id == 'members'
-    ];
-    $items[] = [
-        'label' => Yii::t('podium/view', 'Profile ({name})', ['name' => $podiumUser->podiumName])
-                    . ($subscriptionCount ? ' ' . Html::tag('span', $subscriptionCount, ['class' => 'badge']) : ''),
-        'url' => ['profile/index'],
-        'items' => [
-            ['label' => Yii::t('podium/view', 'My Profile'), 'url' => ['profile/index']],
-            ['label' => Yii::t('podium/view', 'Account Details'), 'url' => ['profile/details']],
-            ['label' => Yii::t('podium/view', 'Forum Details'), 'url' => ['profile/forum']],
-            ['label' => Yii::t('podium/view', 'Subscriptions'), 'url' => ['profile/subscriptions']],
-        ]
-    ];
-    $items[] = [
-        'label' => Yii::t('podium/view', 'Messages') . ($messageCount ? ' ' . Html::tag('span', $messageCount, ['class' => 'badge']) : ''),
-        'url' => ['messages/inbox'],
-        'items' => [
-            ['label' => Yii::t('podium/view', 'Inbox'), 'url' => ['messages/inbox']],
-            ['label' => Yii::t('podium/view', 'Sent'), 'url' => ['messages/sent']],
-            ['label' => Yii::t('podium/view', 'New Message'), 'url' => ['messages/new']],
-        ]
-    ];
-    if ($podiumModule->userComponent === true) {
-        $items[] = ['label' => Yii::t('podium/view', 'Sign out'), 'url' => ['profile/logout'], 'linkOptions' => ['data-method' => 'post']];
-    }
-}
+                        <li class=""><?= Html::a('Members', ['/community/members'], ['class' => 'profile-link']) ?></li>
 
-NavBar::begin([
-    'brandLabel' => '<img src="'.Yii::getAlias('@web').'/uploads/dc_logo.png" />',
-    'brandUrl' => ['forum/index'],
-    'options' => ['class' => 'navbar navbar-fixed-top', 'id' => 'top'],
-    'innerContainerOptions' => ['class' => 'container',]
-]);
-echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right'],
-    'encodeLabels' => false,
-    'activateParents' => true,
-    'items' => $items,
-]);
-NavBar::end();
+
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <span class="flag-icon"></span>
+                                English
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <?=
+//                                    var_dump(\Yii::$app->controller->route);die;
+                                    Html::a('<span class="profile-link "></span> english', "#", ['language' => 'en']
+                                    ); ?>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="profile-link"></span> francaise</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php if (!Yii::$app->user->isGuest) {
+                            $podiumUser = User::findMe();
+                            $messageCount = $podiumUser->newMessagesCount;
+                            $subscriptionCount = $podiumUser->subscriptionsCount;
+
+
+                            if (User::can(Rbac::ROLE_ADMIN)) { ?>
+                                <li class=""><?= Html::a('Administration', ['admin/index'], ['class' => 'profile-link'])
+                                    ?></li>
+                            <?php } ?>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">Profile/<?php echo Yii::$app->user->identity->username ?> <span
+                                            class="caret"></span></a>
+                                <?php if ($subscriptionCount > 0){ ?>
+                                    <span class="badge">
+                                         <?php echo $subscriptionCount;?>
+                                    </span>
+                                <?php } ?></a>
+                                <ul class="dropdown-menu">
+                                    <li><?= Html::a('My Profile', ['/community/profile']) ?></li>
+                                    <li><?= Html::a('Account Details', ['profile/details']) ?></li>
+                                    <li><?= Html::a('Forum Details', ['profile/forum']) ?></li>
+                                    <li><?= Html::a('Subscriptions', ['profile/subscriptions']) ?></li>
+
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">Messages <span class="caret"></span>
+                                    <?php if ($messageCount > 0) { ?>
+                                        <span class="badge">
+                                             <?php echo $messageCount; ?>
+                                        </span>
+                                    <?php } ?></a>
+
+                                <ul class="dropdown-menu">
+                                    <li><?= Html::a('Inbox', ['messages/inbox']) ?></li>
+                                    <li><?= Html::a('Sent', ['messages/sent']) ?></li>
+                                    <li><?= Html::a('New Message', ['messages/new']) ?></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>

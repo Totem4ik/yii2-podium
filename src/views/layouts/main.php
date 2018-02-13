@@ -17,12 +17,22 @@ $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-<meta charset="<?= Yii::$app->charset ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<?= Html::csrfMetaTags() ?>
-<title><?= Html::encode(Helper::title($this->title)) ?></title>
-<?php $this->head() ?>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode(Helper::title($this->title)) ?></title>
+    <?php $this->head() ?>
+
+    <style>
+    <?php if( $_SERVER['HTTP_HOST']=='homewood.evolutionhealth.care'){ ?>
+            body {
+                font-family: Roboto, sans-serif!important;
+            }
+    <?php } ?>
+    </style>
 </head>
+
 <body>
 
 <div class="eh_top_slider eh_clear_top_slider">
@@ -34,26 +44,30 @@ $this->beginPage() ?>
 </div>
 
 <?php $this->beginBody() ?>
-        <header id="navigation">
-                <?= $this->render('/elements/main/_navbar') ?>
-        </header>
 
-        <div class="eh_content_wrapper">
-            <div class="eh_only_middle-content middle-content eh_middle_cont_top_padding">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <?= $this->render('/elements/main/_breadcrumbs') ?>
-                            <?= Alert::widget() ?>
-                            <?= $content ?>
-                        </div>
-                    </div>
+<?= $this->render('/elements/main/_navbar') ?>
+
+<div class="eh_content_wrapper">
+    <div class="eh_only_middle-content middle-content eh_middle_cont_top_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $this->render('/elements/main/_breadcrumbs') ?>
+                    <?= Alert::widget() ?>
+                    <?= $content ?>
                 </div>
             </div>
         </div>
-    <?= $this->render('/elements/main/_footer') ?>
+    </div>
+</div>
+<footer class="eh_footer">
+    <div class="container text-center">
+        <p>© Copyright <?php echo date('Y')?> <a href="http://www.EvolutionHs.com">Evolution Health Systems</a>. All Rights Reserved.</p>
+    </div>
+</footer>
 <?php $this->endBody() ?>
 
 </body>
+
 </html>
 <?php $this->endPage() ?>

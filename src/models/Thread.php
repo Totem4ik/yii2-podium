@@ -98,7 +98,9 @@ class Thread extends ThreadActiveRecord
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => false,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
         $dataProvider->sort->defaultOrder = [
             'pinned' => SORT_DESC,
