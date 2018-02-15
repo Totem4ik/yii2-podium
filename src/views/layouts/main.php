@@ -28,11 +28,11 @@ $this->beginPage() ?>
     <?php $this->head() ?>
 
     <style>
-    <?php if( $_SERVER['HTTP_HOST']=='homewood.evolutionhealth.care'){ ?>
-            body {
-                font-family: Roboto, sans-serif!important;
-            }
-    <?php } ?>
+        <?php if( $_SERVER['HTTP_HOST']=='homewood.evolutionhealth.care'){ ?>
+        body {
+            font-family: Roboto, sans-serif!important;
+        }
+        <?php } ?>
     </style>
 </head>
 
@@ -42,6 +42,23 @@ $this->beginPage() ?>
     <div class="schedule-tab">
         <div class="tab-list text-center">
             <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
+
+            <p class="eh_top_slider_bigtitle">Start to feel like yourself again.</p>
+            <div class="eh_top_slider_bigtitle_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                                This free, interactive online program has helped thousands of people like you to feel more optimistic and at peace.
+                            </p>
+                            <p>
+                                The program is divided into sessions that you can work through at your own pace, with a private community of other members who are here to support you in your journey.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
