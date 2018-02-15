@@ -63,24 +63,11 @@ $this->beginPage() ?>
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="myModalIframe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog"  role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-            </div>
-            <div class="modal-body" style="height: 500px;">
-                <iframe width="100%" height="100%" style="overflow-y:initial !important;" src="http://www.evolutionhs.com" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto">Loading&amp;#8230;</iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <footer class="eh_footer">
     <div class="container text-center">
-        <p>© Copyright <?php echo date('Y')?> <a data-toggle="modal" href="#myModalIframe">Evolution Health Systems</a>. All Rights Reserved.</p>
+        <p>© Copyright <?php echo date('Y') ?> <a  href="http://www.evolutionhs.com" target="_blank">Evolution Health Systems</a>.
+            All Rights Reserved.</p>
     </div>
 </footer>
 <?php $this->endBody() ?>
