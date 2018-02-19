@@ -33,7 +33,7 @@ use app\models\Client;
             <nav id="main-menu" class="navbar-collapse navbar-right collapse" aria-expanded="false">
                 <ul class="nav navbar-nav">
 
-                    <li class=""><?= Html::a('Home', ['forum/index'], ['class' => 'profile-link']) ?></li>
+                    <li class=""><?= Html::a('Home', ['/clinic/index'], ['class' => 'profile-link']) ?></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -51,6 +51,8 @@ use app\models\Client;
                         $podiumUser = User::findMe();
                         $messageCount = $podiumUser->newMessagesCount;
                         $subscriptionCount = $podiumUser->subscriptionsCount;
+
+
                         if (User::can(Rbac::ROLE_ADMIN)) { ?>
                             <li class=""><?= Html::a('Administration', ['admin/index'], ['class' => 'profile-link'])
                                 ?></li>
@@ -67,17 +69,17 @@ use app\models\Client;
                             <?php } ?></a>
                             <ul class="dropdown-menu">
                                 <li><?= Html::a('My Profile', ['/community/profile']) ?></li>
-                                <li><?= Html::a('Account Details', ['profile/details']) ?></li>
-                                <li><?= Html::a('Forum Details', ['profile/forum']) ?></li>
-                                <li><?= Html::a('Subscriptions', ['profile/subscriptions']) ?></li>
-                                <li class="eh_input_btn_in_nav_box">
+                                <li >
                                     <?= Html::beginForm(['/site/logout'], 'post') ?>
                                     <?= Html::submitButton(
-                                        Yii::t('common', 'Logout / ( ') . Yii::$app->user->identity->username . ' )',
+                                        Yii::t('common', 'LOGOUT / ( ') . Yii::$app->user->identity->username . ' )',
                                         ['class' => 'btn btn-link logout']
                                     ); ?>
                                     <?= Html::endForm() ?>
                                 </li>
+                                <li><?= Html::a('Account Details', ['profile/details']) ?></li>
+                                <li><?= Html::a('Forum Details', ['profile/forum']) ?></li>
+                                <li><?= Html::a('Subscriptions', ['profile/subscriptions']) ?></li>
 
                             </ul>
                         </li>
@@ -116,6 +118,8 @@ use app\models\Client;
                             </ul>
                         </li>
                     <?php } ?>
+
+
                 </ul>
             </nav>
         </div>

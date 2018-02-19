@@ -16,7 +16,8 @@ use app\models\Client;
 
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicons.png"])]);
-$this->beginPage() ?>
+$this->beginPage();
+$lastActive = \bizley\podium\models\Activity::lastActive();?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -67,6 +68,22 @@ $this->beginPage() ?>
 
 <?= $this->render('/elements/main/_navbar') ?>
 
+<div class="eh_top_slider_text_box">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <p>
+                    There are <?= $lastActive['count'] ?> guests browsing.
+                    Browse through <?= \bizley\podium\models\Post::getTotalPosts(); ?> posts in <?= \bizley\podium\models\Thread::getTotalThreads(); ?> topics.
+                </p>
+                <p>
+                    Please welcome our newest members:
+                    <?= Client::getMembersLink() ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="eh_content_wrapper">
     <div class="eh_only_middle-content middle-content eh_middle_cont_top_padding">
         <div class="container">
