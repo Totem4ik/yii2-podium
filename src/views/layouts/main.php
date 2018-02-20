@@ -13,27 +13,30 @@ use bizley\podium\widgets\Alert;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Client;
+use app\models\Font;
+use app\models\Theme;
 
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicons.png"])]);
 $this->beginPage();
+$model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
+$font=Font::findOne($model->font_id);
 $lastActive = \bizley\podium\models\Activity::lastActive();?>
+?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=<?php echo $font['name']?>:400,400i,700,700i" rel="stylesheet">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode(Helper::title($this->title)) ?></title>
     <?php $this->head() ?>
 
     <style>
-        <?php if( $_SERVER['HTTP_HOST']=='homewood.evolutionhealth.care'){ ?>
         body {
-            font-family: Roboto, sans-serif!important;
+            font-family: <?php echo $font['name']?>, sans-serif !important;
         }
-        <?php } ?>
     </style>
 </head>
 
@@ -84,6 +87,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();?>
         </div>
     </div>
 </div>
+
 <div class="eh_content_wrapper">
     <div class="eh_only_middle-content middle-content eh_middle_cont_top_padding">
         <div class="container">
