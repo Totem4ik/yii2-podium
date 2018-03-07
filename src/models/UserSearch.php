@@ -43,9 +43,10 @@ class UserSearch extends User
         $query = User::find();
         if ($active) {
             $query->andWhere(['!=', 'status', User::STATUS_REGISTERED]);
+            $query->andWhere(['<>', 'role' , User::ROLE_ADMIN ]);
         }
         if ($mods) {
-            $query->andWhere(['role' => [User::ROLE_ADMIN, User::ROLE_MODERATOR]]);
+            $query->andWhere(['role' => [User::ROLE_MODERATOR]]);
         }
 
         $dataProvider = new ActiveDataProvider(['query' => $query]);
