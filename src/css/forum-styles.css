@@ -428,7 +428,7 @@ a:hover {
     background-color: rgba(0, 114, 188, 0.70);
 }
 .eh_clear_top_slider {
-    padding: 54px 0 30px 0;
+    padding: 54px 0 0px 0;
 }
 .eh_top_slider_title {
     font-size: 32px;
@@ -526,7 +526,7 @@ a:hover {
     padding: 0 0 70px 0;
 }
 .eh_only_middle-content {
-    padding-top: 70px;
+    padding-top: 25px;
 }
 .eh_only_middle-content p {
     padding-bottom: 16px;
