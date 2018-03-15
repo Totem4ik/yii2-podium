@@ -16,7 +16,7 @@ use bizley\podium\widgets\Readers;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = Yii::t('podium/view', 'Members List');
+$this->title = Yii::t('podium/view', 'Are you struggling with Depression or Anxiety?');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

@@ -19,8 +19,13 @@ use app\models\Theme;
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicons.png"])]);
 $this->beginPage();
-$model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
-$font=Font::findOne($model->font_id);
+$this->title = 'Are you struggling with Depression or Anxiety?';
+
+if (isset($_SESSION['clientId'])) {
+    $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
+    $font=Font::findOne($model->font_id);
+}
+
 $lastActive = \bizley\podium\models\Activity::lastActive();?>
 ?>
 <!DOCTYPE html>
