@@ -17,6 +17,7 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use bizley\podium\component\Controller;
 
 /**
  * Podium Profile controller
@@ -25,7 +26,7 @@ use yii\web\UploadedFile;
  * @author Paweł Bizley Brzozowski <pawel@positive.codes>
  * @since 0.1
  */
-class ProfileController extends BaseController
+class ProfileController extends Controller
 {
     /**
      * @inheritdoc

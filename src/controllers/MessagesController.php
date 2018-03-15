@@ -2,6 +2,7 @@
 
 namespace bizley\podium\controllers;
 
+use bizley\podium\component\Controller;
 use bizley\podium\filters\AccessControl;
 use bizley\podium\models\Message;
 use bizley\podium\models\MessageReceiver;
@@ -19,7 +20,7 @@ use yii\web\Response;
  * @author Paweł Bizley Brzozowski <pawel@positive.codes>
  * @since 0.1
  */
-class MessagesController extends BaseController
+class MessagesController extends Controller
 {
     /**
      * @inheritdoc
