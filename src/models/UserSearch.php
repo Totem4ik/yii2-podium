@@ -43,7 +43,7 @@ class UserSearch extends User
         $query = User::find();
         if ($active) {
             $query->andWhere(['!=', 'status', User::STATUS_REGISTERED]);
-            $query->andWhere(['<>', 'role' , User::ROLE_ADMIN ]);
+            $query->andWhere(['not in', 'role' , [User::ROLE_ADMIN, User::ROLE_MODERATOR]]);
         }
         if ($mods) {
             $query->andWhere(['role' => [User::ROLE_MODERATOR]]);
