@@ -2,6 +2,7 @@
 
 namespace bizley\podium\controllers;
 
+use bizley\podium\component\Controller;
 use bizley\podium\filters\AccessControl;
 use bizley\podium\models\User;
 use bizley\podium\models\UserSearch;
@@ -16,7 +17,7 @@ use yii\web\Response;
  * @author Paweł Bizley Brzozowski <pawel@positive.codes>
  * @since 0.1
  */
-class MembersController extends BaseController
+class MembersController extends Controller
 {
     /**
      * @inheritdoc

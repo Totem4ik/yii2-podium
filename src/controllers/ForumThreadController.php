@@ -2,6 +2,7 @@
 
 namespace bizley\podium\controllers;
 
+use bizley\podium\component\Controller;
 use bizley\podium\filters\AccessControl;
 use bizley\podium\models\Category;
 use bizley\podium\models\Forum;
@@ -21,7 +22,7 @@ use yii\web\Response;
  * @author Paweł Bizley Brzozowski <pawel@positive.codes>
  * @since 0.5
  */
-class ForumThreadController extends BaseController
+class ForumThreadController extends Controller
 {
     /**
      * @inheritdoc

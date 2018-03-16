@@ -2,6 +2,7 @@
 
 namespace bizley\podium\controllers;
 
+use bizley\podium\component\Controller;
 use bizley\podium\filters\AccessControl;
 use bizley\podium\log\Log;
 use bizley\podium\models\Content;
@@ -21,7 +22,7 @@ use yii\web\Response;
  * @author Paweł Bizley Brzozowski <pawel@positive.codes>
  * @since 0.1
  */
-class AccountController extends BaseController
+class AccountController extends Controller
 {
     /**
      * @inheritdoc
