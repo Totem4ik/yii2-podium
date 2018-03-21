@@ -196,27 +196,27 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                             <span class="glyphicon glyphicon-thumbs-up"></span>
                         </a></li>
 <?php endif; ?>
-<?php if ($model->thumb && $model->thumb->thumb == -1): ?>
-                    <li><a
-                            href="#"
-                            class="btn btn-xs disabled text-muted podium-thumb-down"
-                            data-post-id="<?= $model->id ?>"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Thumb down') ?>">
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
-                        </a></li>
-<?php else: ?>
-                    <li><a
-                            href="#"
-                            class="btn btn-danger btn-xs podium-thumb-down"
-                            data-post-id="<?= $model->id ?>"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Thumb down') ?>">
-                            <span class="glyphicon glyphicon-thumbs-down"></span>
-                        </a></li>
-<?php endif; ?>
+<?php //if ($model->thumb && $model->thumb->thumb == -1): ?>
+<!--                    <li><a-->
+<!--                            href="#"-->
+<!--                            class="btn btn-xs disabled text-muted podium-thumb-down"-->
+<!--                            data-post-id="--><?//= $model->id ?><!--"-->
+<!--                            data-toggle="tooltip"-->
+<!--                            data-placement="top"-->
+<!--                            title="--><?//= Yii::t('podium/view', 'Thumb down') ?><!--">-->
+<!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
+<!--                        </a></li>-->
+<?php //else: ?>
+<!--                    <li><a-->
+<!--                            href="#"-->
+<!--                            class="btn btn-danger btn-xs podium-thumb-down"-->
+<!--                            data-post-id="--><?//= $model->id ?><!--"-->
+<!--                            data-toggle="tooltip"-->
+<!--                            data-placement="top"-->
+<!--                            title="--><?//= Yii::t('podium/view', 'Thumb down') ?><!--">-->
+<!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
+<!--                        </a></li>-->
+<?php //endif; ?>
                     <li><a
                             href="<?= Url::to(['forum/report', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
                             class="btn btn-warning btn-xs"
