@@ -1317,5 +1317,12 @@ body {
     font-size: 36px;
     font-weight: 400;
 }
-
+.ql-container {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height: 50%;
+    margin: 0px;
+    position: relative;
+}
 
