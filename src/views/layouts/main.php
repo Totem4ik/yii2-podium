@@ -17,7 +17,7 @@ use app\models\Font;
 use app\models\Theme;
 
 PodiumAsset::register($this);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicons.png"])]);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
 $this->beginPage();
 $this->title = 'Are you struggling with Depression or Anxiety?';
 
