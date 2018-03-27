@@ -26,7 +26,7 @@ if (isset($_SESSION['clientId'])) {
     $font=Font::findOne($model->font_id);
 }
 
-$lastActive = \bizley\podium\models\Activity::lastActive();?>
+$lastActive = \bizley\podium\models\Activity::lastActive();
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
