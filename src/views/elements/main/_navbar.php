@@ -60,7 +60,7 @@ use app\models\Client;
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
-                               aria-expanded="false">Profile/<?php echo Yii::$app->user->identity->username ?> <span
+                               aria-expanded="false">Community Settings/<?php echo Yii::$app->user->identity->username ?> <span
                                         class="caret"></span></a>
                             <?php if ($subscriptionCount > 0){ ?>
                             <span class="badge">
@@ -68,7 +68,7 @@ use app\models\Client;
                                     </span>
                             <?php } ?></a>
                             <ul class="dropdown-menu">
-                                <li><?= Html::a('My Profile', ['/community/profile']) ?></li>
+                                <li><?= Html::a('Profile', ['/community/profile']) ?></li>
                                 <li >
                                     <?= Html::beginForm(['/site/logout'], 'post') ?>
                                     <?= Html::submitButton(
@@ -77,7 +77,7 @@ use app\models\Client;
                                     ); ?>
                                     <?= Html::endForm() ?>
                                 </li>
-                                <li><?= Html::a('Account Details', ['profile/details']) ?></li>
+<!--                                <li>--><?//= Html::a('Account Details', ['profile/details']) ?><!--</li>-->
                                 <li><?= Html::a('Forum Details', ['profile/forum']) ?></li>
                                 <li><?= Html::a('Subscriptions', ['profile/subscriptions']) ?></li>
 
