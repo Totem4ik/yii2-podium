@@ -14,6 +14,9 @@ use bizley\podium\rbac\Rbac;
 use bizley\podium\widgets\Avatar;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\ModuleQuiz;
+use app\models\Module;
+use app\models\Client;
 
 $this->registerJs("$('[data-toggle=\"tooltip\"]').tooltip();");
 $this->registerJs(<<<JS
@@ -69,9 +72,8 @@ $rating = $model->likes - $model->dislikes;
 $ratingClass = 'default';
 if ($rating > 0) {
     $ratingClass = 'success';
-    $rating      = '+' . $rating;
-}
-elseif ($rating < 0) {
+    $rating = '+' . $rating;
+} elseif ($rating < 0) {
     $ratingClass = 'danger';
 }
 
@@ -90,26 +92,31 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
             <div class="arrow"></div>
             <div class="popover-title">
                 <small class="pull-right">
-                    <span data-toggle="tooltip" data-placement="top" title="<?= Podium::getInstance()->formatter->asDatetime($model->created_at, 'long') ?>">
+                    <span data-toggle="tooltip" data-placement="top"
+                          title="<?= Podium::getInstance()->formatter->asDatetime($model->created_at, 'long') ?>">
                         <?= Podium::getInstance()->formatter->asRelativeTime($model->created_at) ?>
                     </span>
-<?php if ($model->edited && $model->edited_at): ?>
-                    <em>
-                        (<?= Yii::t('podium/view', 'Edited') ?>
-                        <span data-toggle="tooltip" data-placement="top" title="<?= Podium::getInstance()->formatter->asDatetime($model->edited_at, 'long') ?>">
+                    <?php if ($model->edited && $model->edited_at): ?>
+                        <em>
+                            (<?= Yii::t('podium/view', 'Edited') ?>
+                            <span data-toggle="tooltip" data-placement="top"
+                                  title="<?= Podium::getInstance()->formatter->asDatetime($model->edited_at, 'long') ?>">
                             <?= Podium::getInstance()->formatter->asRelativeTime($model->edited_at) ?>)
                         </span>
-                    </em>
-<?php endif; ?>
+                        </em>
+                    <?php endif; ?>
                     &mdash;
-                    <span class="podium-rating label label-<?= $ratingClass ?>" data-toggle="tooltip" data-placement="top" title="<?= Yii::t('podium/view', 'Rating') ?>">
+                    <span class="podium-rating label label-<?= $ratingClass ?>" data-toggle="tooltip"
+                          data-placement="top" title="<?= Yii::t('podium/view', 'Rating') ?>">
                         <?= $rating ?>
                     </span>
-                    <span class="podium-rating-details hidden label label-default">+<?= $model->likes ?> / -<?= $model->dislikes ?></span>
+                    <span class="podium-rating-details hidden label label-default">+<?= $model->likes ?>
+                        / -<?= $model->dislikes ?></span>
                 </small>
                 <?= $model->author->podiumTag ?>
                 <small>
-                    <span class="label label-info" data-toggle="tooltip" data-placement="top" title="<?= Yii::t('podium/view', 'Number of posts') ?>">
+                    <span class="label label-info" data-toggle="tooltip" data-placement="top"
+                          title="<?= Yii::t('podium/view', 'Number of posts') ?>">
                         <?= $model->author->postsCount ?>
                     </span>
                 </small>
@@ -120,124 +127,182 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                     'height' => 20,
                 ]);
                 ?>
+                <?php
+                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
+                for ($i = 0; $i < count($moduleSessions); $i++) {
+                    $logo = $i + 1;
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
+                    }
+                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                }
+
+                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
+                for ($i = 0; $i < count($moduleSessions); $i++) {
+
+                    $logo = $i + 1;
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
+
+                    }
+                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                }
+
+                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
+                for ($i = 0; $i < count($moduleSessions); $i++) {
+                    $logo = $i + 1;
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
+
+                    }
+                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                    }
+                }
+                ?>
             </div>
             <div class="popover-content podium-content">
-<?php if (isset($parent) && $parent): ?>
-                <a href="<?= Url::to(['forum/thread',
+                <?php if (isset($parent) && $parent): ?>
+                    <a href="<?= Url::to(['forum/thread',
                         'cid' => $model->thread->category_id,
                         'fid' => $model->forum_id,
                         'id' => $model->thread_id,
                         'slug' => $model->thread->slug
-                    ]) ?>"><span class="glyphicon glyphicon-comment"></span> <?= Html::encode($model->thread->name) ?></a><br><br>
-<?php endif; ?>
+                    ]) ?>"><span class="glyphicon glyphicon-comment"></span> <?= Html::encode($model->thread->name) ?>
+                    </a><br><br>
+                <?php endif; ?>
                 <?= $model->parsedContent ?>
-<?php if (!empty($model->author->meta->signature)): ?>
-                <div class="podium-footer small text-muted">
-                    <hr><?= $model->author->meta->parsedSignature ?>
-                </div>
-<?php endif; ?>
+                <?php if (!empty($model->author->meta->signature)): ?>
+                    <div class="podium-footer small text-muted">
+                        <hr><?= $model->author->meta->parsedSignature ?>
+                    </div>
+                <?php endif; ?>
                 <ul class="podium-action-bar list-inline">
                     <li><span class="podium-thumb-info"></span></li>
-<?php if (!Podium::getInstance()->user->isGuest && $model->author_id != $loggedId): ?>
-                    <li><?= Html::beginForm(['forum/post',
-                            'cid' => $model->thread->category_id,
-                            'fid' => $model->forum_id,
-                            'tid' => $model->thread_id,
-                            'pid' => $model->id
-                        ], 'post', ['class' => 'quick-quote-form']) ?>
-                        <?= Html::hiddenInput('quote', '', ['class' => 'quote-selection']); ?>
-                        <?= Html::endForm(); ?><button
-                            class="btn btn-primary btn-xs podium-quote"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Reply with quote') ?>">
-                            <span class="glyphicon glyphicon-leaf"></span>
-                        </button></li>
-<?php endif; ?>
-<?php if ($model->author_id == $loggedId || User::can(Rbac::PERM_UPDATE_POST, ['item' => $model->thread])): ?>
+                    <?php if (!Podium::getInstance()->user->isGuest && $model->author_id != $loggedId): ?>
+                        <li><?= Html::beginForm(['forum/post',
+                                'cid' => $model->thread->category_id,
+                                'fid' => $model->forum_id,
+                                'tid' => $model->thread_id,
+                                'pid' => $model->id
+                            ], 'post', ['class' => 'quick-quote-form']) ?>
+                            <?= Html::hiddenInput('quote', '', ['class' => 'quote-selection']); ?>
+                            <?= Html::endForm(); ?>
+                            <button
+                                    class="btn btn-primary btn-xs podium-quote"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="<?= Yii::t('podium/view', 'Reply with quote') ?>">
+                                <span class="glyphicon glyphicon-leaf"></span>
+                            </button>
+                        </li>
+                    <?php endif; ?>
+                    <?php if ($model->author_id == $loggedId || User::can(Rbac::PERM_UPDATE_POST, ['item' => $model->thread])): ?>
+                        <li><a
+                                    href="<?= Url::to(['forum/edit', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
+                                    class="btn btn-info btn-xs"
+                                    data-pjax="0"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="<?= Yii::t('podium/view', 'Edit Post') ?>">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a></li>
+                    <?php endif; ?>
                     <li><a
-                            href="<?= Url::to(['forum/edit', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
-                            class="btn btn-info btn-xs"
-                            data-pjax="0"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Edit Post') ?>">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a></li>
-<?php endif; ?>
-                    <li><a
-                            href="<?= Url::to(['forum/show', 'id' => $model->id]) ?>"
-                            class="btn btn-default btn-xs"
-                            data-pjax="0"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Direct link to this post') ?>">
+                                href="<?= Url::to(['forum/show', 'id' => $model->id]) ?>"
+                                class="btn btn-default btn-xs"
+                                data-pjax="0"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="<?= Yii::t('podium/view', 'Direct link to this post') ?>">
                             <span class="glyphicon glyphicon-link"></span>
                         </a></li>
-<?php if (!Podium::getInstance()->user->isGuest && $model->author_id != $loggedId): ?>
-<?php if ($model->thumb && $model->thumb->thumb == 1): ?>
-                    <li><a
-                            href="#"
-                            class="btn btn-xs disabled text-muted podium-thumb-up"
-                            data-post-id="<?= $model->id ?>"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Thumb up') ?>">
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        </a></li>
-<?php else: ?>
-                    <li><a
-                            href="#"
-                            class="btn btn-success btn-xs podium-thumb-up"
-                            data-post-id="<?= $model->id ?>"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Thumb up') ?>">
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        </a></li>
-<?php endif; ?>
-<?php //if ($model->thumb && $model->thumb->thumb == -1): ?>
-<!--                    <li><a-->
-<!--                            href="#"-->
-<!--                            class="btn btn-xs disabled text-muted podium-thumb-down"-->
-<!--                            data-post-id="--><?//= $model->id ?><!--"-->
-<!--                            data-toggle="tooltip"-->
-<!--                            data-placement="top"-->
-<!--                            title="--><?//= Yii::t('podium/view', 'Thumb down') ?><!--">-->
-<!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
-<!--                        </a></li>-->
-<?php //else: ?>
-<!--                    <li><a-->
-<!--                            href="#"-->
-<!--                            class="btn btn-danger btn-xs podium-thumb-down"-->
-<!--                            data-post-id="--><?//= $model->id ?><!--"-->
-<!--                            data-toggle="tooltip"-->
-<!--                            data-placement="top"-->
-<!--                            title="--><?//= Yii::t('podium/view', 'Thumb down') ?><!--">-->
-<!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
-<!--                        </a></li>-->
-<?php //endif; ?>
-                    <li><a
-                            href="<?= Url::to(['forum/report', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
-                            class="btn btn-warning btn-xs"
-                            data-pjax="0"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Report post') ?>">
-                            <span class="glyphicon glyphicon-flag"></span>
-                        </a></li>
-<?php endif; ?>
-<?php if ($model->author_id == $loggedId || User::can(Rbac::PERM_DELETE_POST, ['item' => $model->thread])): ?>
-                    <li><a
-                            href="<?= Url::to(['forum/deletepost', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
-                            class="btn btn-danger btn-xs"
-                            data-pjax="0"
-                            data-toggle="tooltip"
-                            data-placement="top"
-                            title="<?= Yii::t('podium/view', 'Delete Post') ?>">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a></li>
-<?php endif; ?>
+                    <?php if (!Podium::getInstance()->user->isGuest && $model->author_id != $loggedId): ?>
+                        <?php if ($model->thumb && $model->thumb->thumb == 1): ?>
+                            <li><a
+                                        href="#"
+                                        class="btn btn-xs disabled text-muted podium-thumb-up"
+                                        data-post-id="<?= $model->id ?>"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="<?= Yii::t('podium/view', 'Thumb up') ?>">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </a></li>
+                        <?php else: ?>
+                            <li><a
+                                        href="#"
+                                        class="btn btn-success btn-xs podium-thumb-up"
+                                        data-post-id="<?= $model->id ?>"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="<?= Yii::t('podium/view', 'Thumb up') ?>">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </a></li>
+                        <?php endif; ?>
+                        <?php //if ($model->thumb && $model->thumb->thumb == -1): ?>
+                        <!--                    <li><a-->
+                        <!--                            href="#"-->
+                        <!--                            class="btn btn-xs disabled text-muted podium-thumb-down"-->
+                        <!--                            data-post-id="--><? //= $model->id ?><!--"-->
+                        <!--                            data-toggle="tooltip"-->
+                        <!--                            data-placement="top"-->
+                        <!--                            title="--><? //= Yii::t('podium/view', 'Thumb down') ?><!--">-->
+                        <!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
+                        <!--                        </a></li>-->
+                        <?php //else: ?>
+                        <!--                    <li><a-->
+                        <!--                            href="#"-->
+                        <!--                            class="btn btn-danger btn-xs podium-thumb-down"-->
+                        <!--                            data-post-id="--><? //= $model->id ?><!--"-->
+                        <!--                            data-toggle="tooltip"-->
+                        <!--                            data-placement="top"-->
+                        <!--                            title="--><? //= Yii::t('podium/view', 'Thumb down') ?><!--">-->
+                        <!--                            <span class="glyphicon glyphicon-thumbs-down"></span>-->
+                        <!--                        </a></li>-->
+                        <?php //endif; ?>
+                        <li><a
+                                    href="<?= Url::to(['forum/report', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
+                                    class="btn btn-warning btn-xs"
+                                    data-pjax="0"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="<?= Yii::t('podium/view', 'Report post') ?>">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </a></li>
+                    <?php endif; ?>
+                    <?php if ($model->author_id == $loggedId || User::can(Rbac::PERM_DELETE_POST, ['item' => $model->thread])): ?>
+                        <li><a
+                                    href="<?= Url::to(['forum/deletepost', 'cid' => $model->thread->category_id, 'fid' => $model->forum_id, 'tid' => $model->thread_id, 'pid' => $model->id]) ?>"
+                                    class="btn btn-danger btn-xs"
+                                    data-pjax="0"
+                                    data-toggle="tooltip"
+                                    data-placement="top"
+                                    title="<?= Yii::t('podium/view', 'Delete Post') ?>">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
