@@ -56,6 +56,9 @@ class ProfileController extends Controller
      */
     public function actionDetails()
     {
+        //remove to activate profile details
+        throw new \Exception('Forbidden', 403);
+
         $model = User::findMe();
         if (empty($model)) {
             return $this->redirect(['account/login']);
