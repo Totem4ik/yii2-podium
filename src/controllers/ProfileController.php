@@ -119,7 +119,7 @@ class ProfileController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = $user->id;
             $uploadAvatar = false;
-            $path = Yii::getAlias('@webroot/avatars');
+            $path = Yii::getAlias('@webroot/uploads/avatars');
             $model->image = UploadedFile::getInstance($model, 'image');
             if ($model->validate()) {
                 if ($model->gravatar && empty($user->email)) {
