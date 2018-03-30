@@ -120,68 +120,42 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                         <?= $model->author->postsCount ?>
                     </span>
                 </small>
+                <span class="popup-medals" id="#start_modal1">
                 <?php
-                echo Html::img($model->author->getImageByPostCount(), [
-                    'title' => $model->author->postsCount,
-                    'width' => 20,
-                    'height' => 20,
-                ]);
-                ?>
-                <?php
-                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
-                for ($i = 0; $i < count($moduleSessions); $i++) {
-                    $logo = $i + 1;
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
-                    }
-                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                }
+                $imageTrophy = $model->author->getImageByPostCount();
+                $files = Client::getImagesFromTropfyFolder();
+                if (isset($files)):
+                    foreach ($files as $key => $file) :
+                        if ($file == '.' || $file == '..') {
+                            continue;
+                        }
+                        $path = Client::MEDALS_PATH . $file;
 
-                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
-                for ($i = 0; $i < count($moduleSessions); $i++) {
+                        if ($path == $imageTrophy) : ?>
 
-                    $logo = $i + 1;
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
+                            <a href="#start_modal1"
+                               data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
+                        </a>
+                        <?php else: ?>
+                            <a href="#start_modal1"
+                               data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'class' => 'medal-opacity', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
+                        </a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+               </span>
 
-                    }
-                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                }
-
-                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
-                for ($i = 0; $i < count($moduleSessions); $i++) {
-                    $logo = $i + 1;
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i]));
-
-                    }
-                    if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                    if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '20px', 'height' => '20px', 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                    }
-                }
-                ?>
+                <div id="start_modal1" class="modal fade">
+                    <div class="modal-dialog modal-dialog-medals">
+                        <div class="modal-content">
+                            <!-- Заголовок модального окна -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title"><?php echo HTML::img('/uploads/img-medals.jpg', $options = ['title' => 'Main Logo', 'alt' => 'logo']); ?></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="popover-content podium-content">
                 <?php if (isset($parent) && $parent): ?>
