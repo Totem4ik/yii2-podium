@@ -1333,3 +1333,21 @@ body {
     width: 676px;
     margin: 30px auto;
 }}
+
+.podium-post {
+    margin-bottom: 5px;
+    display: table;
+    border:1px solid red;
+}
+.avatar-community{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+.post-community{
+    display: table-cell;
+    float: none;
+}
+.popover.right.podium > .arrow {
+    /*top: 55px !important; */
+}
