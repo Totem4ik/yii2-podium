@@ -41,7 +41,7 @@ use app\models\Client;
                         <ul class="dropdown-menu">
                             <li><?= Html::a('Depression', ['/community/home']) ?></li>
                             <li><?= Html::a('Anxiety', ['/community/home']) ?></li>
-                            <li><?= Html::a('Helping Fellow Members', ['/community/home']) ?></li>
+                            <li><?= Html::a('Helping Fellow Members', ['/community/help']) ?></li>
                         </ul>
                     </li>
 
