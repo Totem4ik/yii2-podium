@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h2>
                     <?= Html::encode($model->podiumName) ?>
                     <small>
-                        <?= Html::encode($model->email) ?>
+                        <div class="hide"><?= Html::encode($model->email) ?></div>
                         <?= Helper::roleLabel($model->role) ?>
                     </small>
                 </h2>
@@ -104,6 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endfor; ?>
 
                             </ul>
+
                         </div>
                     <?php endif; ?>
                     <?php if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
