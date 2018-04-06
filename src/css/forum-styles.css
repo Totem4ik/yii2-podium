@@ -1333,21 +1333,34 @@ body {
     width: 676px;
     margin: 30px auto;
 }}
-
 .podium-post {
     margin-bottom: 5px;
     display: table;
-    border:1px solid red;
 }
-.avatar-community{
+.podium-avatar{
     float: none;
     display: table-cell;
     vertical-align: middle;
+    padding:0 0 10px 0;
+
 }
-.post-community{
+.podium-text{
     display: table-cell;
     float: none;
 }
-.popover.right.podium > .arrow {
-    /*top: 55px !important; */
+.small-trophies li{
+    padding: 0px;
+}
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 72%;
+    height: auto;
+}
+.popover.podium {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    position: relative !important;
+    z-index: auto !important;
+    min-height: 218px;
 }
