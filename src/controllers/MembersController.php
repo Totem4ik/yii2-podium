@@ -139,7 +139,7 @@ class MembersController extends Controller
     {
         $searchModel = new UserSearch();
         return $this->render('mods', [
-            'dataProvider' => $searchModel->search(Yii::$app->request->get(), true, true),
+            'dataProvider' => $searchModel->search(Yii::$app->request->get(), false, true),
             'searchModel' => $searchModel
         ]);
     }
