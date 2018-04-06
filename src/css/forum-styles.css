@@ -1364,3 +1364,68 @@ body {
     z-index: auto !important;
     min-height: 218px;
 }
+.eh_only_middle-content.modules-name-forum p{
+    padding-bottom: 0px;
+}
+
+.navbar-nav .eh_input_btn_in_nav_box .logout{
+    position: relative;
+    display: block;
+    padding: 20px 15px;
+    text-transform: uppercase;
+    color: #415562;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.navbar-nav .eh_input_btn_in_nav_box .logout:hover {
+    color: #415562;
+    border-bottom: 3px solid #0EB1F2;
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav li > form > button.logout {
+    padding: 21px 15px;
+    border: none;
+    line-height: 70px;
+    font-weight: bold;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 3px solid transparent;
+}
+.nav li a:hover {
+    color: #0EB1F2;
+    border-bottom: 3px solid #0EB1F2;
+    cursor: pointer;
+}
+
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
+}
+
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+    text-decoration: none;
+}
+
+.nav > li > form > button.logout:focus {
+    outline: none;
+}
+.text-footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.text-footer a {
+    color: white;
+}
+
+.text-footer a:hover {
+    color: #0072bc;
+}
