@@ -89,7 +89,7 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
         <ul class="list-inline small-trophies">
             <?php
 
-            $client=User::findOne($model->author_id);
+            $client = User::findOne($model->author_id);
             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, $client->inherited_id);
             for ($i = 0; $i < count($moduleSessions); $i++) :?>
                 <li>
@@ -120,14 +120,14 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                     <?php
                     $logo = $i + 1;
                     if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px',  'alt' => 'My Logo']));
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
                     }
                     if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px' ]));
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px']));
 
                     }
                     if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px','alt' => 'My Logo']));
+                        echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
                     }
                     if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
                         echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
@@ -211,20 +211,17 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                         if ($file == '.' || $file == '..') {
                             continue;
                         }
-                        if ($key <= Client::POSITION_LAST_STAR_IN_ARRAY && ($countStar >= Client::FIRST_STAR && $countStar <= Client::LAST_STAR)) {
-                            $countStar--;
-                        }
+                        $countStar--;
                         $path = Client::MEDALS_PATH . $file;
-                        if ($path == $imageTrophy || ($countStar >= Client::FIRST_STAR && $countStar <= Client::LAST_STAR)) : ?>
+                        if ($countStar >= 0) :?>
                             <a href="#start_modal1"
                                data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
-                            </a>
+                        </a>
                         <?php else: ?>
                             <a href="#start_modal1"
                                data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'class' => 'medal-opacity', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
                             </a>
                         <?php endif; ?>
-
                     <?php endforeach; ?>
                 <?php endif; ?>
                </span>
