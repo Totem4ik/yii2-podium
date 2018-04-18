@@ -122,10 +122,10 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
                 <?= Yii::t('common','ABOUT')?>
             </div>
             <div class="col-sm-3">
-                <?= Yii::t('common','THERMS OF USE')?>
+                <?= HTML::a( Yii::t('common','TERMS OF USE'),\yii\helpers\Url::to(['/site/terms']),["target"=>"_blank"])?>
             </div>
             <div class="col-sm-3">
-                <?= Yii::t('common','PRIVACY')?>
+                <?= HTML::a( Yii::t('common','PRIVACY'),\yii\helpers\Url::to(['/site/privacy']),["target"=>"_blank"])?>
             </div>
         </div>
     </div>
@@ -133,7 +133,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         <p>© <?= Yii::t('common', 'Copyright');
             echo date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
                 Systems</a>.
-            <?= Yii::t('common','All Rights Reserved.')?>All Rights Reserved.</p>
+            <?= Yii::t('common','All Rights Reserved.')?></p>
     </div>
 </footer>
 <?php $this->endBody() ?>
