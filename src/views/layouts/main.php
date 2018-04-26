@@ -19,7 +19,7 @@ use app\models\Theme;
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
 $this->beginPage();
-$this->title = 'Are you struggling with Depression or Anxiety?';
+$this->title = 'Are You Struggling with Depression or Anxiety?';
 
 if (isset($_SESSION['clientId'])) {
     $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
@@ -108,9 +108,32 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
 </div>
 
 <footer class="eh_footer">
+    <div class="text-footer text-center">
+        <p><?= Yii::t('common', 'Evolution Health is not a healthcare provider and does not provide medical advice, diagnosis, or treatment.
+            If you are currently thinking about or planning to harm yourself or someone else please call 911 or go to
+            the nearest hospital emergency room.') ?> </p>
+    </div>
+    <div class="text-footer text-center">
+        <div class="row">
+            <div class="col-sm-3">
+                <?= HTML::a( Yii::t('common','CONTACT'),'http://www.evolutionhs.com/contact.html',["target"=>"_blank"])?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a(Yii::t('common','ABOUT'),\yii\helpers\Url::to(['/about']))?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a( Yii::t('common','TERMS OF USE'),\yii\helpers\Url::to(['/site/terms']))?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a( Yii::t('common','PRIVACY'),\yii\helpers\Url::to(['/site/privacy']))?>
+            </div>
+        </div>
+    </div>
     <div class="container text-center">
-        <p>© Copyright <?php echo date('Y') ?> <a  href="http://www.evolutionhs.com" target="_blank">Evolution Health Systems</a>.
-            All Rights Reserved.</p>
+        <p>© <?= Yii::t('common', 'Copyright');
+            echo date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
+                Systems</a>.
+            <?= Yii::t('common','All Rights Reserved.')?></p>
     </div>
 </footer>
 <?php $this->endBody() ?>

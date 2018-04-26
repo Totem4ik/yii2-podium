@@ -131,99 +131,102 @@ if (!Podium::getInstance()->user->isGuest) {
                         </p>
                     <?php endif; ?>
                     <?php if ($model->role != User::ROLE_ADMIN): ?>
-                        <?php if (isset($model->inherited_id) && !empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
-                            <hr/>
-                            <div>
-                                <p><b>Depression :</b></p>
-                                <ul class="list-inline">
-                                    <?php
-                                    $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
-                                    for ($i = 0; $i < count($moduleSessions); $i++) :?>
-                                        <li>
-                                            <?php
-                                            $logo = $i + 1;
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH. $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            ?>
-                                            </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($model->inherited_id) && !empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
-                            <hr/>
-                            <div>
-                                <p><b>Anxiety :</b></p>
-                                <ul class="list-inline">
-                                    <?php
-                                    $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
-                                    for ($i = 0; $i < count($moduleSessions); $i++) :?>
-                                        <li>
-                                            <?php
-                                            $logo = $i + 1;
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
+                        <?php
+//                            var_dump($model->inherited_id);die;
+                        ?>
+                        <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
+                        <!--                            <hr/>-->
+                        <div>
+                            <p><b>Depression:</b></p>
+                            <ul class="list-inline">
+                                <?php
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, $model->inherited_id);
+                                for ($i = 0; $i < count($moduleSessions); $i++) :?>
+                                    <li>
+                                        <?php
+                                        $logo = $i + 1;
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH. $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        ?>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                        <!--                        --><?php //endif; ?>
+                        <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
+                        <hr/>
+                        <div>
+                            <p><b>Anxiety:</b></p>
+                            <ul class="list-inline">
+                                <?php
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, $model->inherited_id);
+                                for ($i = 0; $i < count($moduleSessions); $i++) :?>
+                                    <li>
+                                        <?php
+                                        $logo = $i + 1;
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
 
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            ?>
-                                            </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
-                            <hr/>
-                            <div>
-                                <p><b>More Help :</b></p>
-                                <ul class="list-inline">
-                                    <?php
-                                    $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
-                                    for ($i = 0; $i < count($moduleSessions); $i++) :?>
-                                        <li>
-                                            <?php
-                                            $logo = $i + 1;
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        ?>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                        <!--                        --><?php //endif; ?>
+                        <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
+                        <!--                            <hr/>-->
+                        <div>
+                            <p><b>More Help:</b></p>
+                            <ul class="list-inline">
+                                <?php
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, $model->inherited_id);
+                                for ($i = 0; $i < count($moduleSessions); $i++) :?>
+                                    <li>
+                                        <?php
+                                        $logo = $i + 1;
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
 
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                                echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                            }
-                                            ?>
-                                            </a>
-                                        </li>
-                                    <?php endfor; ?>
-                                </ul>
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                        }
+                                        ?>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
+                            </ul>
 
-                            </div>
-                        <?php endif; ?>
+                        </div>
+                        <!--                        --><?php //endif; ?>
                     <?php endif; ?>
                 </div>
                 <?php if ($model->role == User::ROLE_MODERATOR && !empty($model->mods)): ?>
