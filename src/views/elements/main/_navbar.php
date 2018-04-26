@@ -43,8 +43,8 @@ use app\models\Client;
                             <li><?= Html::a('Anxiety', ['/community/home']) ?></li>
                             <li><?= Html::a('Helping Fellow Members', ['/community/help']) ?></li>
                             <li class=""><?= Html::a(Yii::t('common', 'Members'), ['/community/members'], ['class' => 'profile-link']) ?></li>
-                            <li><?= Html::a('Community Settings', ['community/profile/forum']) ?></li>
-                            <li><?= Html::a('Messages', ['community/messages/inbox']) ?></li>
+                            <li><?= Html::a('Community Settings', ['profile/forum']) ?></li>
+                            <li><?= Html::a('Messages', ['messages/inbox']) ?></li>
 
                         </ul>
                     </li>
@@ -58,25 +58,30 @@ use app\models\Client;
 
                             <ul class="dropdown-menu">
                                 <li>
-                                    <?= Html::a(Yii::t('common', 'Login'), ['clinic/login']) ?>
+                                    <?= Html::a(Yii::t('common', 'Login'), ['/clinic/login']) ?>
                                 </li>
                                 <?php $domain = $_SERVER['HTTP_HOST'];
                                 if ($domain != 'homewood.evolutionhealth.care' && $domain != 'www.homewood.evolutionhealth.care') { ?>
                                     <li>
-                                        <?= Html::a(Yii::t('common', 'Signup'), ['clinic/signup']) ?>
+                                        <?= Html::a(Yii::t('common', 'Signup'), ['/clinic/signup']) ?>
                                     </li>
                                 <?php } ?>
                             </ul>
                         </li>
                     <?php }
                     else { ?>
-                    <li class="eh_input_btn_in_nav_box">
+                    <li class="eh_input_btn_in_nav_box" data-inline="<?php echo Yii::$app->user->identity->username?>">
                         <?= Html::beginForm(['/site/logout'], 'post') ?>
                         <?= Html::submitButton(
-                            Yii::t('common', 'Logout / (') . Yii::$app->user->identity->username . ' )',
+                            Yii::t('common', 'Logout / ') . mb_strimwidth(Yii::$app->user->identity->username,0,8,"...") ,
                             ['class' => 'btn btn-link logout']
                         ); ?>
+                        <?= Html::submitButton(
+                            Yii::t('common', 'Logout / (') . Yii::$app->user->identity->username . ' )',
+                            ['class' => 'btn btn-link logout logout_hidden_hover']
+                        ); ?>
                         <?= Html::endForm() ?>
+
                         <?php } ?>
 
                         <?php if (!Yii::$app->user->isGuest) {
@@ -88,6 +93,8 @@ use app\models\Client;
                         if (User::can(Rbac::ROLE_ADMIN)) { ?>
                     <li class=""><?= Html::a('Administration', ['admin/index'], ['class' => 'profile-link'])
                         ?></li>
+                <?php } ?>
+
                 <?php } ?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -104,7 +111,7 @@ use app\models\Client;
                         </a>
                         <ul class="dropdown-menu">
 
-                            <?php if (Yii::$app->language === 'fr-FR') : ?>?
+                            <?php if (Yii::$app->language === 'fr-FR') : ?>
                                 <li>
                                     <?= Html::a('ENGLISH', ['/clinic/language', 'id' => 'en-EN']); ?>
                                 </li>
@@ -115,9 +122,6 @@ use app\models\Client;
                             <?php endif; ?>
                         </ul>
                     </li>
-                <?php } ?>
-
-
                 </ul>
             </nav>
         </div>

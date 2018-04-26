@@ -19,7 +19,7 @@ use app\models\Theme;
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
 $this->beginPage();
-$this->title = 'Are you struggling with Depression or Anxiety?';
+$this->title = 'Are You Struggling with Depression or Anxiety?';
 
 if (isset($_SESSION['clientId'])) {
     $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
@@ -119,13 +119,13 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
                 <?= HTML::a( Yii::t('common','CONTACT'),'http://www.evolutionhs.com/contact.html',["target"=>"_blank"])?>
             </div>
             <div class="col-sm-3">
-                <?= Yii::t('common','ABOUT')?>
+                <?= HTML::a(Yii::t('common','ABOUT'),\yii\helpers\Url::to(['/about']))?>
             </div>
             <div class="col-sm-3">
-                <?= HTML::a( Yii::t('common','TERMS OF USE'),\yii\helpers\Url::to(['/site/terms']),["target"=>"_blank"])?>
+                <?= HTML::a( Yii::t('common','TERMS OF USE'),\yii\helpers\Url::to(['/site/terms']))?>
             </div>
             <div class="col-sm-3">
-                <?= HTML::a( Yii::t('common','PRIVACY'),\yii\helpers\Url::to(['/site/privacy']),["target"=>"_blank"])?>
+                <?= HTML::a( Yii::t('common','PRIVACY'),\yii\helpers\Url::to(['/site/privacy']))?>
             </div>
         </div>
     </div>

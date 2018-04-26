@@ -54,6 +54,7 @@ a:hover {
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: 3px solid transparent;
+    padding-top:4px;
 }
 
 .navbar-nav li a:hover,
@@ -68,7 +69,7 @@ a:hover {
 }
 
 .navbar-brand {
-    height:70px;
+    height:80px;
     padding: 5px 15px;
 }
 .navbar-brand img {
@@ -538,7 +539,7 @@ a:hover {
     font-weight: 700;
     margin-bottom: 16px;
     font-size: 36px;
-    text-transform: capitalize;
+    //text-transform: capitalize;
     color: rgb(0, 114, 188);
 }
 
@@ -1353,7 +1354,7 @@ body {
 }
 .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     display: block;
-    max-width: 72%;
+    max-width: 100%;
     height: auto;
 }
 .popover.podium {
@@ -1376,6 +1377,7 @@ body {
     color: #415562;
     line-height: 28px;
     font-weight: bold;
+    padding-top:24px;
 }
 
 .navbar-nav .eh_input_btn_in_nav_box .logout:hover {
@@ -1428,4 +1430,39 @@ body {
 
 .text-footer a:hover {
     color: #0072bc;
+}
+.eh_input_btn_in_nav_box:after {
+    content: 'Logout / 'attr(data-inline);
+    display: none;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    overflow: inherit;
+    color: #0EB1F2;
+    border-bottom: 3px solid #0EB1F2;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 4px 15px;
+    line-height: 70px;
+    background-color: white;
+    z-index: 999;
+
+
+}
+.eh_input_btn_in_nav_box:hover:after {
+    display: block;
+}
+
+.eh_input_btn_in_nav_box .logout.logout_hidden_hover {
+    display: none;
+}
+
+.eh_input_btn_in_nav_box:hover .logout.logout_hidden_hover {
+    position: absolute;
+    z-index: 9999;
+    display: block;
+    top: 0;
+    opacity: 0;
 }
