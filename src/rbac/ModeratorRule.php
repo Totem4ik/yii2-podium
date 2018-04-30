@@ -22,6 +22,6 @@ class ModeratorRule extends Rule
      */
     public function execute($user, $item, $params)
     {
-        return isset($params['item']) ? $params['item']->isMod() : false;
+        return isset($params['item']) ? $params['item']->isMod($user) : false;
     }
 }
