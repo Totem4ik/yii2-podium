@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../evolution-health/.idea/evolution-health.iml" filepath="$PROJECT_DIR$/../evolution-health/.idea/evolution-health.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/yii2-podium.iml" filepath="$PROJECT_DIR$/.idea/yii2-podium.iml" />
     </modules>
   </component>
