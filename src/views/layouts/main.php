@@ -55,6 +55,9 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
 <div class="eh_top_slider eh_clear_top_slider">
     <div class="schedule-tab">
         <div class="tab-list text-center">
+            <?php if(Yii::$app->user->isGuest) :?>
+                <h3 class="text_without_login">Please Login or Signup to Access These Features</h3>
+            <?php endif;?>
             <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
 
             <p class="eh_top_slider_bigtitle">Start to feel like yourself again.</p>
@@ -104,7 +107,6 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             <div class="row">
                 <div class="col-sm-12">
                     <?= $this->render('/elements/main/_breadcrumbs') ?>
-                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
             </div>
