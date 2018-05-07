@@ -1466,3 +1466,7 @@ body {
     top: 0;
     opacity: 0;
 }
+.text_without_login{
+    margin:40px 0 0 0;
+    font-size: 24px
+}

@@ -76,6 +76,20 @@ class User extends UserActiveRecord
      */
     public $tos;
 
+    public $itemTable = '{{%podium_auth_item}}';
+    /**
+     * @var string the name of the table storing authorization item hierarchy. Defaults to "auth_item_child".
+     */
+    public $itemChildTable = '{{%podium_auth_item_child}}';
+    /**
+     * @var string the name of the table storing authorization item assignments. Defaults to "auth_assignment".
+     */
+    public $assignmentTable = '{{%podium_auth_assignment}}';
+    /**
+     * @var string the name of the table storing rules. Defaults to "auth_rule".
+     */
+    public $ruleTable = '{{%podium_auth_rule}}';
+
     /**
      * @inheritdoc
      */
@@ -620,6 +634,9 @@ class User extends UserActiveRecord
             if ($allowCaching && empty($params) && isset($user->_access[$permissionName])) {
                 return $user->_access[$permissionName];
             }
+
+            self::setRbacAuthTables($user->assignmentTable, $user->itemTable, $user->itemChildTable, $user->ruleTable);
+
             $access = Podium::getInstance()->rbac->checkAccess($user->id, $permissionName, $params);
             if ($allowCaching && empty($params)) {
                 $user->_access[$permissionName] = $access;
@@ -627,6 +644,13 @@ class User extends UserActiveRecord
             return $access;
         }
         return false;
+    }
+
+    private static function setRbacAuthTables($assigmentTableName, $itemTable, $itemChildTable, $ruleTable) {
+        Podium::getInstance()->rbac->assignmentTable = $assigmentTableName;
+        Podium::getInstance()->rbac->itemTable = $itemTable;
+        Podium::getInstance()->rbac->itemChildTable = $itemChildTable;
+        Podium::getInstance()->rbac->ruleTable = $ruleTable;
     }
 
     /**

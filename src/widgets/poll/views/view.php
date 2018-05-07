@@ -78,7 +78,7 @@ $loggedId = User::loggedId();
 <?php if (!$hidden || $voted): ?>
 <?php foreach ($model->sortedAnswers as $answer): $perc = $model->votesCount > 0 ? ceil($answer->votes * 100 / $model->votesCount) : 0; ?>
                     <div>
-                        <span class="label label-default pull-right podium-poll-answer-votes-<?= $answer->id ?>">0</span>
+                        <span class="label label-default pull-right podium-poll-answer-votes-<?= $answer->id ?>"><?= isset($answer->votes) ? $answer->votes : 0 ?></span>
                         <?= Html::encode($answer->answer) ?>
                         <div class="progress">
                             <div class="progress-bar progress-bar-success podium-poll-answer-<?= $answer->id ?>" role="progressbar" aria-valuenow="<?= $perc ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $perc ?>%">

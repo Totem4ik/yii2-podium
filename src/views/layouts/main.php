@@ -15,6 +15,7 @@ use yii\helpers\Url;
 use app\models\Client;
 use app\models\Font;
 use app\models\Theme;
+use app\components\CheckAccessClient;
 
 PodiumAsset::register($this);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
@@ -24,6 +25,10 @@ $this->title = 'Are You Struggling with Depression or Anxiety?';
 if (isset($_SESSION['clientId'])) {
     $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
     $font=Font::findOne($model->font_id);
+}
+else{
+    $accessSite = new CheckAccessClient($_SERVER['HTTP_HOST']);
+    $accessSite->checkAccess();
 }
 
 $lastActive = \bizley\podium\models\Activity::lastActive();
@@ -50,6 +55,9 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
 <div class="eh_top_slider eh_clear_top_slider">
     <div class="schedule-tab">
         <div class="tab-list text-center">
+            <?php if(Yii::$app->session->getFlash('loginMessage')) : ?>
+                <div class="text_without_login"> <?= Yii::$app->session->getFlash('loginMessage') ?></div>
+            <?php endif;?>
             <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
 
             <p class="eh_top_slider_bigtitle">Start to feel like yourself again.</p>
@@ -99,7 +107,6 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             <div class="row">
                 <div class="col-sm-12">
                     <?= $this->render('/elements/main/_breadcrumbs') ?>
-                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
             </div>
