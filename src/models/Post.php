@@ -206,7 +206,7 @@ class Post extends PostActiveRecord
                 'forcePageParam' => false
             ],
         ]);
-        $dataProvider->sort->defaultOrder = ['id' => SORT_ASC];
+        $dataProvider->sort->defaultOrder = ['id' => SORT_DESC];
         return $dataProvider;
     }
 
