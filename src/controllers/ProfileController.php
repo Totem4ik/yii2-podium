@@ -37,6 +37,7 @@ class ProfileController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'denyCallback' => function ($rule, $action) {
+                    Yii::$app->session->setFlash('loginMessage', 'Please Login or Signup to Access These Features');
                     return $this->redirect(['account/login']);
                 },
                 'rules' => [

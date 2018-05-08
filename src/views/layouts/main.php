@@ -123,7 +123,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
     <div class="text-footer text-center">
         <div class="row">
             <div class="col-sm-3">
-                <?= HTML::a( Yii::t('common','CONTACT'),'http://www.evolutionhs.com/contact.html',["target"=>"_blank"])?>
+                <?= HTML::a(Yii::t('common', 'CONTACT'), 'http://EvolutionHealth.Systems', ["target" => "_blank"]) ?>
             </div>
             <div class="col-sm-3">
                 <?= HTML::a(Yii::t('common','ABOUT'),\yii\helpers\Url::to(['/about']))?>
