@@ -23,10 +23,10 @@ use yii\widgets\Breadcrumbs;
                 <div class="input-group">
                     <?= Html::textInput('query', null, ['class' => 'form-control']); ?>
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-search"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                            <li><a href="<?= Url::to(['forum/advanced-search']) ?>"><?= Yii::t('podium/view', 'Advanced Search Form') ?></a></li>
-                        </ul>
+                        <button type="submit" class="btn btn-default"  aria-expanded="false"><span class="glyphicon glyphicon-search"></span></button>
+                        <!--                        <ul class="dropdown-menu dropdown-menu-right" role="menu">-->
+                        <!--                            <li><a href="--><?//= Url::to(['forum/advanced-search']) ?><!--">--><?//= Yii::t('podium/view', 'Advanced Search Form') ?><!--</a></li>-->
+                        <!--                        </ul>-->
                     </div>
                 </div>
             </div>
