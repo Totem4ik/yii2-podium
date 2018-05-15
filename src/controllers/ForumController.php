@@ -19,6 +19,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\Response;
+use bizley\podium\Podium;
 
 /**
  * Podium Forum controller
@@ -249,10 +250,10 @@ class ForumController extends ForumPostController
 
         try {
             $count = (new Query)->from(Post::tableName())->where([
-                    'and',
-                    ['thread_id' => $post->thread_id],
-                    ['<', 'id', $post->id]
-                ])->count();
+                'and',
+                ['thread_id' => $post->thread_id],
+                ['<', 'id', $post->id]
+            ])->count();
             $page = floor($count / 10) + 1;
             if ($page > 1) {
                 $url['page'] = $page;
@@ -446,6 +447,7 @@ class ForumController extends ForumPostController
             }
 
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
                 if (empty($model->query) && empty($model->author)) {
                     $this->error(Yii::t('podium/flash', "You have to enter words or author's name first."));
                 } else {

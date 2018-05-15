@@ -139,11 +139,15 @@ class SearchForm extends Model
     protected function prepareQuery($query, $topics = false)
     {
         $field = $topics
-                ? Thread::tableName() . '.created_at'
-                : Post::tableName() . '.updated_at';
+            ? Thread::tableName() . '.created_at'
+            : Post::tableName() . '.updated_at';
+
+        $table = $topics ? Thread::tableName() : Post::tableName();
+
         if (!empty($this->author)) {
             $query->andWhere(['like', 'username', $this->author])->joinWith(['author']);
         }
+
         if (!empty($this->dateFromStamp) && empty($this->dateToStamp)) {
             $query->andWhere(['>=', $field, $this->dateFromStamp]);
         } elseif (!empty($this->dateToStamp) && empty($this->dateFromStamp)) {
@@ -168,10 +172,11 @@ class SearchForm extends Model
                     }
                 }
                 if (!empty($forums)) {
-                    $query->andWhere(['forum_id' => $forums]);
+                    $query->andWhere([$table . '.forum_id' => $forums]);
                 }
             }
         }
+
     }
 
     /**
@@ -189,6 +194,11 @@ class SearchForm extends Model
                 }]);
             }]);
         }
+
+        if ($this->display == 'posts') {
+            $query->rightJoin('{{%podium_post}}', Post::tableName().'.thread_id = '. Thread::tableName() .'.id');
+        }
+//
         if (!empty($this->query)) {
             $words = explode(' ', preg_replace('/\s+/', ' ', $this->query));
             foreach ($words as $word) {
@@ -199,7 +209,9 @@ class SearchForm extends Model
                 }
             }
         }
+
         $this->prepareQuery($query, true);
+
         $sort = [
             'defaultOrder' => [Thread::tableName() . '.id' => SORT_DESC],
             'attributes' => [
@@ -210,9 +222,13 @@ class SearchForm extends Model
                 ],
             ]
         ];
+
         return new ActiveDataProvider([
             'query' => $query,
             'sort' => $sort,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
     }
 
@@ -223,9 +239,9 @@ class SearchForm extends Model
      */
     public function searchPosts()
     {
-        $query = Vocabulary::find()->select('post_id, thread_id')->joinWith(['posts.author', 'posts.thread'])->andWhere(['is not', 'post_id', null]);
+        $query = Post::find()->joinWith(['thread']);
         if (Podium::getInstance()->user->isGuest) {
-            $query->joinWith(['posts.forum' => function ($q) {
+            $query->joinWith(['forum' => function ($q) {
                 $q->andWhere([Forum::tableName() . '.visible' => 1])->joinWith(['category' => function ($q) {
                     $q->andWhere([Category::tableName() . '.visible' => 1]);
                 }]);
@@ -235,21 +251,22 @@ class SearchForm extends Model
             $words = explode(' ', preg_replace('/\s+/', ' ', $this->query));
             $countWords = 0;
             foreach ($words as $word) {
-                $query->orWhere(['like', 'word', $word]);
+                $query->orWhere(['like', Post::tableName() . '.content', $word]);
                 $countWords++;
             }
-            $query->groupBy('post_id');
+
             if ($this->match == 'all' && $countWords > 1) {
-                $query->select(['post_id', 'thread_id', 'COUNT(post_id) AS c'])->having(['>', 'c', $countWords - 1]);
+                $query->select([Post::tableName().'.id', Post::tableName().'.thread_id', 'COUNT('.Post::tableName().'.id) AS c'])->having(['>', 'c', $countWords - 1]);
             }
         }
+
         $this->prepareQuery($query);
         $sort = [
-            'defaultOrder' => ['post_id' => SORT_DESC],
+            'defaultOrder' => [Post::tableName() . '.id' => SORT_DESC],
             'attributes' => [
-                'post_id' => [
-                    'asc' => ['post_id' => SORT_ASC],
-                    'desc' => ['post_id' => SORT_DESC],
+                Post::tableName() . '.id' => [
+                    'asc' => [Post::tableName() . '.id' => SORT_ASC],
+                    'desc' => [Post::tableName() . '.id' => SORT_DESC],
                     'default' => SORT_DESC,
                 ],
             ]
@@ -257,6 +274,9 @@ class SearchForm extends Model
         return new ActiveDataProvider([
             'query' => $query,
             'sort' => $sort,
+            'pagination' => [
+                'pageSize' => 10
+            ],
         ]);
     }
 
@@ -280,9 +300,11 @@ class SearchForm extends Model
                 'display' => $this->display
             ]);
         }
+
         if ($this->type == 'topics') {
             return $this->searchTopics();
         }
+
         return $this->searchPosts();
     }
 }

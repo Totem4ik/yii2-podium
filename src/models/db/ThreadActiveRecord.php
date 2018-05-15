@@ -247,7 +247,7 @@ class ThreadActiveRecord extends ActiveRecord
      */
     public function getPostData()
     {
-        return $this->hasOne(Post::className(), ['thread_id' => 'id'])->orderBy(['id' => SORT_ASC]);
+        return $this->hasOne(Post::className(), ['thread_id' => 'id'])->orderBy([Post::tableName().'.id' => SORT_DESC]);
     }
 
     /**
@@ -257,9 +257,9 @@ class ThreadActiveRecord extends ActiveRecord
     public function getFirstNewNotSeen()
     {
         return $this
-                ->hasOne(Post::className(), ['thread_id' => 'id'])
-                ->where(['>', 'created_at', $this->userView ? $this->userView->new_last_seen : 0])
-                ->orderBy(['id' => SORT_ASC]);
+            ->hasOne(Post::className(), ['thread_id' => 'id'])
+            ->where(['>', 'created_at', $this->userView ? $this->userView->new_last_seen : 0])
+            ->orderBy(['id' => SORT_ASC]);
     }
 
     /**
@@ -269,9 +269,9 @@ class ThreadActiveRecord extends ActiveRecord
     public function getFirstEditedNotSeen()
     {
         return $this
-                ->hasOne(Post::className(), ['thread_id' => 'id'])
-                ->where(['>', 'edited_at', $this->userView ? $this->userView->edited_last_seen : 0])
-                ->orderBy(['id' => SORT_ASC]);
+            ->hasOne(Post::className(), ['thread_id' => 'id'])
+            ->where(['>', 'edited_at', $this->userView ? $this->userView->edited_last_seen : 0])
+            ->orderBy(['id' => SORT_ASC]);
     }
 
     /**
