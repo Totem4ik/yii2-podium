@@ -206,7 +206,8 @@ class Post extends PostActiveRecord
                 'forcePageParam' => false
             ],
         ]);
-        $dataProvider->sort->defaultOrder = ['id' => SORT_ASC];
+
+        $dataProvider->sort->defaultOrder = ['id' => SORT_DESC];
         return $dataProvider;
     }
 
@@ -323,25 +324,30 @@ class Post extends PostActiveRecord
      * @param int $limit
      * @return array
      */
-    public static function getLatest($limit = 5)
-    {
-        $cacheKey = Podium::getInstance()->user->isGuest ? 'guest' : 'member';
-        $method = Podium::getInstance()->user->isGuest ? 'getLatestPostsForGuests' : 'getLatestPostsForMembers';
-        $latest = Podium::getInstance()->podiumCache->getElement('forum.latestposts', $cacheKey);
-        if ($latest === false) {
-            $posts = static::$method($limit);
-            foreach ($posts as $post) {
-                $latest[] = [
-                    'id' => $post->id,
-                    'title' => $post->thread->name,
-                    'created' => $post->created_at,
-                    'author' => $post->author->podiumTag
-                ];
-            }
-            Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
-        }
-        return $latest;
-    }
+	public static function getLatest($limit = 5)
+	{
+		$cacheKey = Podium::getInstance()->user->isGuest ? 'guest' : 'member';
+		$method = Podium::getInstance()->user->isGuest ? 'getLatestPostsForGuests' : 'getLatestPostsForMembers';
+		$latest = Podium::getInstance()->podiumCache->getElement('forum.latestposts', $cacheKey);
+
+		if ($latest === false) {
+			$posts = static::$method($limit);
+			foreach ($posts as $post) {
+				$latest[] = [
+					'id' => $post->id,
+					'title' => $post->thread->name,
+					'created' => $post->created_at,
+					'author' => $post->author->podiumTag,
+					'authorName' => $post->author->username,
+					'authorLogo' => $post->author->mainUser->logo_patient ?: 'baselogo.png',
+					'authorLink' => '/community/members/view/'. $post->author->id .'/'. $post->author->slug,
+					'threadLink' => '/community/thread/' . $post->thread->category_id . '/' . $post->thread->forum_id . '/' . $post->thread->id . '/' . $post->thread->slug,
+				];
+			}
+			Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
+		}
+		return $latest;
+	}
 
     /**
      * Returns the verified post.

@@ -76,6 +76,20 @@ class User extends UserActiveRecord
      */
     public $tos;
 
+    public $itemTable = '{{%podium_auth_item}}';
+    /**
+     * @var string the name of the table storing authorization item hierarchy. Defaults to "auth_item_child".
+     */
+    public $itemChildTable = '{{%podium_auth_item_child}}';
+    /**
+     * @var string the name of the table storing authorization item assignments. Defaults to "auth_assignment".
+     */
+    public $assignmentTable = '{{%podium_auth_assignment}}';
+    /**
+     * @var string the name of the table storing rules. Defaults to "auth_rule".
+     */
+    public $ruleTable = '{{%podium_auth_rule}}';
+
     /**
      * @inheritdoc
      */
@@ -189,9 +203,9 @@ class User extends UserActiveRecord
         $cache = Podium::getInstance()->podiumCache->getElement('user.newmessages', $this->id);
         if ($cache === false) {
             $cache = (new Query())->from(MessageReceiver::tableName())->where([
-                    'receiver_id' => $this->id,
-                    'receiver_status' => Message::STATUS_NEW
-                ])->count();
+                'receiver_id' => $this->id,
+                'receiver_status' => Message::STATUS_NEW
+            ])->count();
             Podium::getInstance()->podiumCache->setElement('user.newmessages', $this->id, $cache);
         }
         return $cache;
@@ -206,9 +220,9 @@ class User extends UserActiveRecord
         return $this->username ?: 'user_' . $this->id;
     }
 
-	public function getMainUser () {
-		return $this->hasOne(Client::className(), ['id' => 'inherited_id']);
-	}
+    public function getMainUser () {
+        return $this->hasOne(Client::className(), ['id' => 'inherited_id']);
+    }
 
     /**
      * Returns Podium name tag.
@@ -259,7 +273,7 @@ class User extends UserActiveRecord
 
         switch ($count) {
             case $count >= 10 && $count < 50:
-                $image = 'star.png';
+                $image = 'star_1.png';
                 break;
             case $count >= 50 && $count < 150:
                 $image = 'star_2.png';
@@ -271,22 +285,22 @@ class User extends UserActiveRecord
                 $image = 'star_4.png';
                 break;
             case $count >= 500 && $count < 750:
-                $image = 'silver_star_3.png';
+                $image = 'star_5.png';
                 break;
             case $count >= 750 && $count < 1000:
-                $image = 'silver_star_5.png';
+                $image = 'star_6.png';
                 break;
             case $count >= 1000 && $count < 1500:
-                $image = 'bronse_medal.png';
+                $image = 'star_7.png';
                 break;
             case $count >= 1500 && $count < 2000:
-                $image = 'siver_medal.png';
+                $image = 'star_8.png';
                 break;
             case $count >= 2000 && $count < 3000:
-                $image = 'gold_medal.png';
+                $image = 'star_9.png';
                 break;
             case $count >= 3000:
-                $image = 'korona.png';
+                $image = 'star_9_.png';
                 break;
             default:
                 $image = false;
@@ -367,9 +381,9 @@ class User extends UserActiveRecord
         $cache = Podium::getInstance()->podiumCache->getElement('user.subscriptions', $this->id);
         if ($cache === false) {
             $cache = (new Query)->from(Subscription::tableName())->where([
-                    'user_id' => $this->id,
-                    'post_seen' => Subscription::POST_NEW
-                ])->count();
+                'user_id' => $this->id,
+                'post_seen' => Subscription::POST_NEW
+            ])->count();
             Podium::getInstance()->podiumCache->setElement('user.subscriptions', $this->id, $cache);
         }
         return $cache;
@@ -384,9 +398,9 @@ class User extends UserActiveRecord
     public function isBefriendedBy($userId)
     {
         if ((new Query)->select('id')->from('{{%podium_user_friend}}')->where([
-                'user_id' => $userId,
-                'friend_id' => $this->id
-            ])->exists()) {
+            'user_id' => $userId,
+            'friend_id' => $this->id
+        ])->exists()) {
             return true;
         }
         return false;
@@ -401,9 +415,9 @@ class User extends UserActiveRecord
     public function isFriendOf($userId)
     {
         if ((new Query)->select('id')->from('{{%podium_user_friend}}')->where([
-                'user_id' => $this->id,
-                'friend_id' => $userId
-            ])->exists()) {
+            'user_id' => $this->id,
+            'friend_id' => $userId
+        ])->exists()) {
             return true;
         }
         return false;
@@ -417,9 +431,9 @@ class User extends UserActiveRecord
     public function isIgnoredBy($userId)
     {
         if ((new Query)->select('id')->from('{{%podium_user_ignore}}')->where([
-                'user_id' => $userId,
-                'ignored_id' => $this->id
-            ])->exists()) {
+            'user_id' => $userId,
+            'ignored_id' => $this->id
+        ])->exists()) {
             return true;
         }
         return false;
@@ -433,9 +447,9 @@ class User extends UserActiveRecord
     public function isIgnoring($user_id)
     {
         if ((new Query)->select('id')->from('{{%podium_user_ignore}}')->where([
-                'user_id' => $this->id,
-                'ignored_id' => $user_id
-            ])->exists()) {
+            'user_id' => $this->id,
+            'ignored_id' => $user_id
+        ])->exists()) {
             return true;
         }
         return false;
@@ -620,6 +634,9 @@ class User extends UserActiveRecord
             if ($allowCaching && empty($params) && isset($user->_access[$permissionName])) {
                 return $user->_access[$permissionName];
             }
+
+            self::setRbacAuthTables($user->assignmentTable, $user->itemTable, $user->itemChildTable, $user->ruleTable);
+
             $access = Podium::getInstance()->rbac->checkAccess($user->id, $permissionName, $params);
             if ($allowCaching && empty($params)) {
                 $user->_access[$permissionName] = $access;
@@ -627,6 +644,13 @@ class User extends UserActiveRecord
             return $access;
         }
         return false;
+    }
+
+    private static function setRbacAuthTables($assigmentTableName, $itemTable, $itemChildTable, $ruleTable) {
+        Podium::getInstance()->rbac->assignmentTable = $assigmentTableName;
+        Podium::getInstance()->rbac->itemTable = $itemTable;
+        Podium::getInstance()->rbac->itemChildTable = $itemChildTable;
+        Podium::getInstance()->rbac->ruleTable = $ruleTable;
     }
 
     /**
@@ -665,9 +689,9 @@ class User extends UserActiveRecord
     {
         try {
             if ((new Query())->from(Mod::tableName())->where([
-                    'forum_id' => $forumId,
-                    'user_id' => $this->id
-                ])->exists()) {
+                'forum_id' => $forumId,
+                'user_id' => $this->id
+            ])->exists()) {
                 Podium::getInstance()->db->createCommand()->delete(Mod::tableName(), [
                     'forum_id' => $forumId,
                     'user_id' => $this->id
@@ -701,7 +725,7 @@ class User extends UserActiveRecord
             $add = [];
             foreach ($newForums as $forum) {
                 if (!in_array($forum, $oldForums, true) && (new Query)->from(Forum::tableName())->where(['id' => $forum])->exists()
-                        && (new Query)->from(Mod::tableName())->where(['forum_id' => $forum, 'user_id' => $this->id])->exists() === false) {
+                    && (new Query)->from(Mod::tableName())->where(['forum_id' => $forum, 'user_id' => $this->id])->exists() === false) {
                     $add[] = [$forum, $this->id];
                 }
             }
@@ -866,9 +890,9 @@ class User extends UserActiveRecord
         try {
             if ($this->isIgnoredBy($member)) {
                 if (!Podium::getInstance()->db->createCommand()->delete('{{%podium_user_ignore}}', [
-                        'user_id' => $member,
-                        'ignored_id' => $this->id
-                    ])->execute()) {
+                    'user_id' => $member,
+                    'ignored_id' => $this->id
+                ])->execute()) {
                     return false;
                 }
                 Log::info('User unignored', $this->id, __METHOD__);
@@ -896,9 +920,9 @@ class User extends UserActiveRecord
         try {
             if ($this->isBefriendedBy($friend)) {
                 if (!Podium::getInstance()->db->createCommand()->delete('{{%podium_user_friend}}', [
-                        'user_id' => $friend,
-                        'friend_id' => $this->id
-                    ])->execute()) {
+                    'user_id' => $friend,
+                    'friend_id' => $this->id
+                ])->execute()) {
                     return false;
                 }
                 Log::info('User unfriended', $this->id, __METHOD__);

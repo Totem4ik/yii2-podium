@@ -37,6 +37,7 @@ class ProfileController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 'denyCallback' => function ($rule, $action) {
+                    Yii::$app->session->setFlash('loginMessage', 'Please Login or Signup to Access These Features');
                     return $this->redirect(['account/login']);
                 },
                 'rules' => [
@@ -56,6 +57,9 @@ class ProfileController extends Controller
      */
     public function actionDetails()
     {
+        //remove to activate profile details
+        throw new \Exception('Forbidden', 403);
+
         $model = User::findMe();
         if (empty($model)) {
             return $this->redirect(['account/login']);
@@ -116,7 +120,7 @@ class ProfileController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = $user->id;
             $uploadAvatar = false;
-            $path = Yii::getAlias('@webroot/avatars');
+            $path = Yii::getAlias('@webroot/uploads/avatars');
             $model->image = UploadedFile::getInstance($model, 'image');
             if ($model->validate()) {
                 if ($model->gravatar && empty($user->email)) {

@@ -34,92 +34,94 @@ use app\models\Client;
                 <ul class="nav navbar-nav">
 
                     <li class=""><?= Html::a('Home', ['/clinic/index'], ['class' => 'profile-link']) ?></li>
-
+                    <li><?= Html::a('Profile', ['/community/profile']) ?></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><?= Html::a('Depression', ['/community/home']) ?></li>
                             <li><?= Html::a('Anxiety', ['/community/home']) ?></li>
-                            <li><?= Html::a('Helping Fellow Members', ['/community/home']) ?></li>
+                            <li><?= Html::a('Helping Fellow Members', ['/community/help']) ?></li>
+                            <li class=""><?= Html::a(Yii::t('common', 'Members'), ['/community/members'], ['class' => 'profile-link']) ?></li>
+                            <li><?= Html::a('Community Settings', ['profile/forum']) ?></li>
+                            <li><?= Html::a('Messages', ['messages/inbox']) ?></li>
+
                         </ul>
                     </li>
 
+                    <?php if (Yii::$app->user->isGuest) { ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <?php echo (Yii::$app->user->isGuest) ? Yii::t('common', 'Login') : 'Logout' ?><span
+                                        class="caret"></span></a>
 
-                    <li class=""><?= Html::a('Members', ['/community/members'], ['class' => 'profile-link']) ?></li>
-                    <?php if (!Yii::$app->user->isGuest) {
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <?= Html::a(Yii::t('common', 'Login'), ['/clinic/login']) ?>
+                                </li>
+                                <?php $domain = $_SERVER['HTTP_HOST'];
+                                if ($domain != 'homewood.evolutionhealth.care' && $domain != 'www.homewood.evolutionhealth.care') { ?>
+                                    <li>
+                                        <?= Html::a(Yii::t('common', 'Signup'), ['/clinic/signup']) ?>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php }
+                    else { ?>
+                    <li class="eh_input_btn_in_nav_box" data-inline="<?php echo Yii::$app->user->identity->username?>">
+                        <?= Html::beginForm(['/site/logout'], 'post') ?>
+                        <?= Html::submitButton(
+                            Yii::t('common', 'Logout / ') . mb_strimwidth(Yii::$app->user->identity->username,0,8,"...") ,
+                            ['class' => 'btn btn-link logout']
+                        ); ?>
+                        <?= Html::submitButton(
+                            Yii::t('common', 'Logout / (') . Yii::$app->user->identity->username . ' )',
+                            ['class' => 'btn btn-link logout logout_hidden_hover']
+                        ); ?>
+                        <?= Html::endForm() ?>
+
+                        <?php } ?>
+
+                        <?php if (!Yii::$app->user->isGuest) {
                         $podiumUser = User::findMe();
                         $messageCount = $podiumUser->newMessagesCount;
                         $subscriptionCount = $podiumUser->subscriptionsCount;
 
 
                         if (User::can(Rbac::ROLE_ADMIN)) { ?>
-                            <li class=""><?= Html::a('Administration', ['admin/index'], ['class' => 'profile-link'])
-                                ?></li>
-                        <?php } ?>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">Profile/<?php echo Yii::$app->user->identity->username ?> <span
-                                        class="caret"></span></a>
-                            <?php if ($subscriptionCount > 0){ ?>
-                            <span class="badge">
-                                         <?php echo $subscriptionCount;?>
-                                    </span>
-                            <?php } ?></a>
-                            <ul class="dropdown-menu">
-                                <li><?= Html::a('My Profile', ['/community/profile']) ?></li>
-                                <li >
-                                    <?= Html::beginForm(['/site/logout'], 'post') ?>
-                                    <?= Html::submitButton(
-                                        Yii::t('common', 'LOGOUT / ( ') . Yii::$app->user->identity->username . ' )',
-                                        ['class' => 'btn btn-link logout']
-                                    ); ?>
-                                    <?= Html::endForm() ?>
-                                </li>
-                                <li><?= Html::a('Account Details', ['profile/details']) ?></li>
-                                <li><?= Html::a('Forum Details', ['profile/forum']) ?></li>
-                                <li><?= Html::a('Subscriptions', ['profile/subscriptions']) ?></li>
+                    <li class=""><?= Html::a('Administration', ['admin/index'], ['class' => 'profile-link'])
+                        ?></li>
+                <?php } ?>
 
-                            </ul>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">Messages <span class="caret"></span>
-                                <?php if ($messageCount > 0) { ?>
-                                    <span class="badge">
-                                             <?php echo $messageCount; ?>
-                                        </span>
-                                <?php } ?></a>
-
-                            <ul class="dropdown-menu">
-                                <li><?= Html::a('Inbox', ['messages/inbox']) ?></li>
-                                <li><?= Html::a('Sent', ['messages/sent']) ?></li>
-                                <li><?= Html::a('New Message', ['messages/new']) ?></li>
-                            </ul>
-                        </li>
-                        <li class=""><?= Html::a('About', ['/clinic/about'], ['class' => 'profile-link']) ?></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true" aria-expanded="false">
+                <?php } ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <?php if (Yii::$app->language === 'fr-FR') { ?>
+                                <span class="flag-icon"></span>
+                                Français
+                                <span class="caret"></span>
+                            <?php } else { ?>
                                 <span class="flag-icon"></span>
                                 English
                                 <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <?= Html::a('<span class="profile-link "></span> english', "#", ['language' => 'en']
-                                    ); ?>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="profile-link"></span> francaise</a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php } ?>
+                            <?php } ?>
+                        </a>
+                        <ul class="dropdown-menu">
 
-
+                            <?php if (Yii::$app->language === 'fr-FR') : ?>
+                                <li>
+                                    <?= Html::a('ENGLISH', ['/clinic/language', 'id' => 'en-EN']); ?>
+                                </li>
+                            <?php else: ?>
+                                <li>
+                                    <?= Html::a('Français', ['/clinic/language', 'id' => 'fr-FR']); ?>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

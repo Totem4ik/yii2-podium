@@ -30,7 +30,7 @@ $firstToSee = $model->firstToSee();
 <td class="text-center"><?= $model->posts > 0 ? $model->posts - 1 : 0 ?></td>
 <td class="text-center"><?= $model->views ?></td>
 <td>
-<?php if (!empty($model->latest) && !empty($model->latest->author)): ?>
-    <small><?= $model->latest->author->podiumTag ?><br><?= Podium::getInstance()->formatter->asDatetime($model->latest->created_at) ?></small>
-<?php endif; ?>
+    <?php if (!empty($model->latest) && !empty($model->latest->author)): ?>
+        <small><?= $model->latest->author->podiumTag ?><br><?= Podium::getInstance()->formatter->asDatetime($model->latest->created_at) ?></small>
+    <?php endif; ?>
 </td>

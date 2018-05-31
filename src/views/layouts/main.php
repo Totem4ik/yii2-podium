@@ -15,18 +15,23 @@ use yii\helpers\Url;
 use app\models\Client;
 use app\models\Font;
 use app\models\Theme;
+use app\components\CheckAccessClient;
 
 PodiumAsset::register($this);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicons.png"])]);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
 $this->beginPage();
-$this->title = 'Are you struggling with Depression or Anxiety?';
+$this->title = 'Are You Struggling with Depression or Anxiety?';
 
 if (isset($_SESSION['clientId'])) {
     $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
     $font=Font::findOne($model->font_id);
 }
+else{
+    $accessSite = new CheckAccessClient($_SERVER['HTTP_HOST']);
+    $accessSite->checkAccess();
+}
 
-$lastActive = \bizley\podium\models\Activity::lastActive();?>
+$lastActive = \bizley\podium\models\Activity::lastActive();
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -50,6 +55,9 @@ $lastActive = \bizley\podium\models\Activity::lastActive();?>
 <div class="eh_top_slider eh_clear_top_slider">
     <div class="schedule-tab">
         <div class="tab-list text-center">
+            <?php if(Yii::$app->session->getFlash('loginMessage')) : ?>
+                <div class="text_without_login"> <?= Yii::$app->session->getFlash('loginMessage') ?></div>
+            <?php endif;?>
             <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
 
             <p class="eh_top_slider_bigtitle">Start to feel like yourself again.</p>
@@ -99,7 +107,6 @@ $lastActive = \bizley\podium\models\Activity::lastActive();?>
             <div class="row">
                 <div class="col-sm-12">
                     <?= $this->render('/elements/main/_breadcrumbs') ?>
-                    <?= Alert::widget() ?>
                     <?= $content ?>
                 </div>
             </div>
@@ -108,9 +115,32 @@ $lastActive = \bizley\podium\models\Activity::lastActive();?>
 </div>
 
 <footer class="eh_footer">
+    <div class="text-footer text-center">
+        <p><?= Yii::t('common', 'Evolution Health is not a healthcare provider and does not provide medical advice, diagnosis, or treatment.
+            If you are currently thinking about or planning to harm yourself or someone else please call 911 or go to
+            the nearest hospital emergency room.') ?> </p>
+    </div>
+    <div class="text-footer text-center">
+        <div class="row">
+            <div class="col-sm-3">
+                <?= HTML::a(Yii::t('common', 'CONTACT'), 'http://EvolutionHealth.Systems', ["target" => "_blank"]) ?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a(Yii::t('common','ABOUT'),\yii\helpers\Url::to(['/about']))?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a( Yii::t('common','TERMS OF USE'),\yii\helpers\Url::to(['/site/terms']))?>
+            </div>
+            <div class="col-sm-3">
+                <?= HTML::a( Yii::t('common','PRIVACY'),\yii\helpers\Url::to(['/site/privacy']))?>
+            </div>
+        </div>
+    </div>
     <div class="container text-center">
-        <p>© Copyright <?php echo date('Y') ?> <a  href="http://www.evolutionhs.com" target="_blank">Evolution Health Systems</a>.
-            All Rights Reserved.</p>
+        <p>© <?= Yii::t('common', 'Copyright');
+            echo date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
+                Systems</a>.
+            <?= Yii::t('common','All Rights Reserved.')?></p>
     </div>
 </footer>
 <?php $this->endBody() ?>

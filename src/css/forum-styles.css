@@ -54,6 +54,7 @@ a:hover {
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: 3px solid transparent;
+    padding-top:4px;
 }
 
 .navbar-nav li a:hover,
@@ -68,7 +69,7 @@ a:hover {
 }
 
 .navbar-brand {
-    height:70px;
+    height:80px;
     padding: 5px 15px;
 }
 .navbar-brand img {
@@ -538,7 +539,7 @@ a:hover {
     font-weight: 700;
     margin-bottom: 16px;
     font-size: 36px;
-    text-transform: capitalize;
+    //text-transform: capitalize;
     color: rgb(0, 114, 188);
 }
 
@@ -1317,5 +1318,155 @@ body {
     font-size: 36px;
     font-weight: 400;
 }
+.ql-container {
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height: 50%;
+    margin: 0px;
+    position: relative;
+}
+
+.medal-opacity {
+    opacity: 0.5;
+}
+@media (min-width: 768px){.modal-dialog-medals{
+    width: 676px;
+    margin: 30px auto;
+}}
+.podium-post {
+    margin-bottom: 5px;
+    display: table;
+}
+.podium-avatar{
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+    padding:0 0 10px 0;
+
+}
+.podium-text{
+    display: table-cell;
+    float: none;
+}
+.small-trophies li{
+    padding: 0px;
+}
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.popover.podium {
+    display: block !important;
+    width: auto !important;
+    max-width: none !important;
+    position: relative !important;
+    z-index: auto !important;
+    min-height: 218px;
+}
+.eh_only_middle-content.modules-name-forum p{
+    padding-bottom: 0px;
+}
+
+.navbar-nav .eh_input_btn_in_nav_box .logout{
+    position: relative;
+    display: block;
+    padding: 20px 15px;
+    text-transform: uppercase;
+    color: #415562;
+    line-height: 28px;
+    font-weight: bold;
+    padding-top:24px;
+}
+
+.navbar-nav .eh_input_btn_in_nav_box .logout:hover {
+    color: #415562;
+    border-bottom: 3px solid #0EB1F2;
+    cursor: pointer;
+    text-decoration: none;
+}
+.nav li > form > button.logout {
+    padding: 21px 15px;
+    border: none;
+    line-height: 70px;
+    font-weight: bold;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: 3px solid transparent;
+}
+.nav li a:hover {
+    color: #0EB1F2;
+    border-bottom: 3px solid #0EB1F2;
+    cursor: pointer;
+}
+
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
+}
+
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+    text-decoration: none;
+}
+
+.nav > li > form > button.logout:focus {
+    outline: none;
+}
+.text-footer {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+
+.text-footer a {
+    color: white;
+}
+
+.text-footer a:hover {
+    color: #0072bc;
+}
+.eh_input_btn_in_nav_box:after {
+    content: 'Logout / 'attr(data-inline);
+    display: none;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    overflow: inherit;
+    color: #0EB1F2;
+    border-bottom: 3px solid #0EB1F2;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 4px 15px;
+    line-height: 70px;
+    background-color: white;
+    z-index: 999;
 
 
+}
+.eh_input_btn_in_nav_box:hover:after {
+    display: block;
+}
+
+.eh_input_btn_in_nav_box .logout.logout_hidden_hover {
+    display: none;
+}
+
+.eh_input_btn_in_nav_box:hover .logout.logout_hidden_hover {
+    position: absolute;
+    z-index: 9999;
+    display: block;
+    top: 0;
+    opacity: 0;
+}
+.text_without_login{
+    margin:40px 0 0 0;
+    font-size: 24px
+}

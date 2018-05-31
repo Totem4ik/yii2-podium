@@ -50,7 +50,7 @@ class UserSearch extends User
         }
 
         $dataProvider = new ActiveDataProvider(['query' => $query]);
-        $dataProvider->sort->defaultOrder = ['id' => SORT_ASC];
+        $dataProvider->sort->defaultOrder = ['id' => SORT_DESC];
         $dataProvider->pagination->pageSize = Yii::$app->session->get('per-page', 20);
 
         if (!($this->load($params) && $this->validate())) {

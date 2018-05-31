@@ -21,16 +21,16 @@ class Vocabulary extends VocabularyActiveRecord
      */
     public function search()
     {
-        $query = static::find()->where(['and',
-            ['is not', 'post_id', null],
-            ['like', 'word', $this->query]
-        ])->joinWith(['posts.author', 'posts.thread']);
+        $query = Post::find()->where(['like', 'content', $this->query])
+            ->joinWith(['thread']);
+
         if (Podium::getInstance()->user->isGuest) {
-            $query->joinWith(['posts.forum' => function($q) {
-                $q->where([Forum::tableName() . '.visible' => 1]);
+            $query->joinWith(['forum' => function($q) {
+                $q->andWhere([Forum::tableName() . '.visible' => 1]);
             }]);
         }
-        $query->groupBy(['post_id', 'word_id']);
+
+        $query->orderBy('created_at DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
