@@ -11,6 +11,7 @@ use cebe\markdown\GithubMarkdown;
 use Exception;
 use yii\data\ActiveDataProvider;
 use yii\helpers\HtmlPurifier;
+use yii\helpers\Url;
 
 /**
  * Post model
@@ -341,7 +342,13 @@ class Post extends PostActiveRecord
 					'authorName' => $post->author->username,
 					'authorLogo' => $post->author->mainUser->logo_patient ?: 'baselogo.png',
 					'authorLink' => '/community/members/view/'. $post->author->id .'/'. $post->author->slug,
-					'threadLink' => '/community/thread/' . $post->thread->category_id . '/' . $post->thread->forum_id . '/' . $post->thread->id . '/' . $post->thread->slug,
+					'threadLink' => '/community'.Url::to(['forum/thread',
+                        'cid' => $post->thread->category_id,
+                        'fid' => $post->forum_id,
+                        'id' => $post->thread_id,
+                        'slug' => $post->thread->slug
+                    ])
+//                        '/community/thread/' . $post->thread->category_id . '/' . $post->thread->forum_id . '/' . $post->thread->id . '/' . $post->thread->slug,
 				];
 			}
 			Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
