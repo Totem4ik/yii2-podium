@@ -39,8 +39,8 @@ use app\models\Client;
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><?= Html::a('Depression', ['/community/home']) ?></li>
-                            <li><?= Html::a('Anxiety', ['/community/home']) ?></li>
+                            <li><?= Html::a('Anxiety', ['/community/category/3/anxiety']) ?></li>
+                            <li><?= Html::a('Depression', ['/community/category/4/depression']) ?></li>
                             <li><?= Html::a('Helping Fellow Members', ['/community/help']) ?></li>
                             <li class=""><?= Html::a(Yii::t('common', 'Members'), ['/community/members'], ['class' => 'profile-link']) ?></li>
                             <li><?= Html::a('Community Settings', ['profile/forum']) ?></li>
