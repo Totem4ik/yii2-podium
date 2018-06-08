@@ -89,7 +89,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         <div class="row">
             <div class="col-sm-12 text-center">
                 <p>
-                    There are <?= $lastActive['count'] ?> guests browsing.
+                    There are <?= (Yii::$app->session->get('activity')) ? Yii::$app->session->get('activity') : $lastActive['count'] ?> guests browsing.
                     Browse through <?= \bizley\podium\models\Post::getTotalPosts(); ?> posts in <?= \bizley\podium\models\Thread::getTotalThreads(); ?> topics.
                 </p>
                 <p>

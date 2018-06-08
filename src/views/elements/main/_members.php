@@ -18,7 +18,7 @@ $lastActive = Activity::lastActive();
         <p>
             <?= Yii::t('podium/view', '{n, plural, =1{# active user} other{# active users}} (in the past 15 minutes)', ['n' => !empty($lastActive['count']) ? $lastActive['count'] : 0]) ?><br>
             <?= Yii::t('podium/view', '{n, plural, =1{# member} other{# members}}', ['n' => !empty($lastActive['members']) ? $lastActive['members'] : 0]) ?>,
-            <?= Yii::t('podium/view', '{n, plural, =1{# guest} other{# guests}}', ['n' => !empty($lastActive['guests']) ? $lastActive['guests'] : 0]) ?>
+            <?= Yii::t('podium/view', '{n, plural, =1{# guest} other{# guests}}', ['n' =>  (Yii::$app->session->get('activity')) ? Yii::$app->session->get('activity') : $lastActive['guests']]) ?>
 
         </p>
 <?php if (!empty($lastActive['names'])): ?>
