@@ -22,14 +22,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::t
 $this->beginPage();
 $this->title = 'Are You Struggling with Depression or Anxiety?';
 
-if (isset($_SESSION['clientId'])) {
-    $model=Theme::find()->select('font_id')->where(['client_id'=>$_SESSION['clientId']])->one();
-    $font=Font::findOne($model->font_id);
-}
-else{
-    $accessSite = new CheckAccessClient($_SERVER['HTTP_HOST']);
-    $accessSite->checkAccess();
-}
+
+$model=Theme::find()->select('font_id')->where(['client_id'=>Yii::$app->site->id])->one();
+$font=Font::findOne($model->font_id);
+
 
 $lastActive = \bizley\podium\models\Activity::lastActive();
 ?>

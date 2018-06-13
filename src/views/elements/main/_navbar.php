@@ -27,7 +27,7 @@ use app\models\Client;
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">
-                    <?= HTML::img(Client::LOGO_PATH_UPLOAD . $_SESSION['logo'], $options = ['title' => 'Main Logo', 'class' => ['img-responsive']]); ?>
+                    <?= HTML::img(Client::LOGO_PATH_UPLOAD .Yii::$app->site->logo, $options = ['title' => 'Main Logo', 'class' => ['img-responsive']]); ?>
                 </a>
             </div>
             <nav id="main-menu" class="navbar-collapse navbar-right collapse" aria-expanded="false">
