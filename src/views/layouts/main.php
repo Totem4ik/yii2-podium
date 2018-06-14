@@ -85,11 +85,17 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         <div class="row">
             <div class="col-sm-12 text-center">
                 <p>
-                    There are <?= (Yii::$app->session->get('activity')) ? Yii::$app->session->get('activity') : $lastActive['count'] ?> guests browsing.
-                    Browse through <?= \bizley\podium\models\Post::getTotalPosts(); ?> posts in <?= \bizley\podium\models\Thread::getTotalThreads(); ?> topics.
+                    <?php  echo Yii::t('common',  'There are {guest} guests browsing.',
+                        ['guest'=>$lastActive['count']+16
+                        ])?>
+                    <?php $post= \bizley\podium\models\Post::getTotalPosts();
+                    $topic=\bizley\podium\models\Thread::getTotalThreads();
+                    echo Yii::t('common',  'Browse through {post} posts in {topics} topics.',
+                        ['post'=>$post, 'topics'=>$topic
+                        ])?>
                 </p>
                 <p>
-                    Please welcome our newest members:
+                    <?php echo Yii::t('common', 'Please welcome our newest members:')?>
                     <?= Client::getMembersLink() ?>
                 </p>
             </div>
@@ -133,7 +139,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         </div>
     </div>
     <div class="container text-center">
-        <p>© <?= Yii::t('common', 'Copyright');
+        <p>© <?= Yii::t('common', 'Copyright').' ';
             echo date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
                 Systems</a>.
             <?= Yii::t('common','All Rights Reserved.')?></p>

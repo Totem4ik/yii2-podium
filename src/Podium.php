@@ -191,7 +191,6 @@ class Podium extends Module implements BootstrapInterface
     public function init()
     {
         parent::init();
-        \app\models\SiteUserActivity::getUserCount(true);
         $this->setAliases(['@podium' => '@vendor/bizley/podium/src']);
         if (Yii::$app instanceof WebApplication) {
             $this->podiumComponent->registerComponents();
