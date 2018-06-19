@@ -90,7 +90,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
                         ])?>
                     <?php $post= \bizley\podium\models\Post::getTotalPosts();
                     $topic=\bizley\podium\models\Thread::getTotalThreads();
-                    echo Yii::t('common',  'Browse through {post} posts in {topics} topics.',
+                    echo Yii::t('common',  'Browse through {post} posts in {topics} threads.',
                         ['post'=>$post, 'topics'=>$topic
                         ])?>
                 </p>
@@ -139,10 +139,10 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         </div>
     </div>
     <div class="container text-center">
-        <p>© <?= Yii::t('common', 'Copyright').' ';
-            echo date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
-                Systems</a>.
-            <?= Yii::t('common','All Rights Reserved.')?></p>
+        <p>© <?= Yii::t('common', 'Copyright') . ' '; ?>
+            <?php echo (Yii::$app->language=='fr-FR')? ' ': date('Y') ?> <a href="http://www.evolutionhs.com" target="_blank">Evolution Health
+                Systems</a><?php echo (Yii::$app->language=='fr-FR')? ', ':'.'?>
+            <?= Yii::t('common', 'All Rights Reserved.') ?> <?php echo (Yii::$app->language=='fr-FR')? date('Y'):''?></p>
     </div>
 </footer>
 <?php $this->endBody() ?>
