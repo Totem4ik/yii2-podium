@@ -18,9 +18,9 @@ use app\models\Theme;
 use app\components\CheckAccessClient;
 
 PodiumAsset::register($this);
-$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/favicon.ico"])]);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(["/uploads/".Client::getFaviconName()])]);
 $this->beginPage();
-$this->title = Yii::t('common', 'Are You Struggling with Depression or Anxiety?');
+$this->title = Html::encode($this->title = Client::getTitle());
 
 
 $model=Theme::find()->select('font_id')->where(['client_id'=>Yii::$app->site->id])->one();
@@ -54,7 +54,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             <?php if(Yii::$app->session->getFlash('loginMessage')) : ?>
                 <div class="text_without_login"> <?= Yii::$app->session->getFlash('loginMessage') ?></div>
             <?php endif;?>
-            <h3 class="eh_subtitle eh_subtitle_forum"><?= Html::encode($this->title) ?></h3>
+            <h3 class="eh_subtitle eh_subtitle_forum"><?= Yii::t('common', 'Are You Struggling with Depression or Anxiety?');?></h3>
 
             <p class="eh_top_slider_bigtitle"><?php echo Yii::t('common', 'Start to feel like yourself again.')?></p>
             <div class="eh_top_slider_bigtitle_container">
