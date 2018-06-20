@@ -36,7 +36,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=<?php echo $font['name']?>:400,400i,700,700i" rel="stylesheet">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode(Helper::title($this->title)) ?></title>
+    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 
     <style>
