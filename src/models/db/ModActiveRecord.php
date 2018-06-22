@@ -4,6 +4,7 @@ namespace bizley\podium\models\db;
 
 use bizley\podium\db\ActiveRecord;
 use yii\db\ActiveQuery;
+use bizley\podium\models\Forum;
 
 /**
  * Mod AR
@@ -31,6 +32,6 @@ class ModActiveRecord extends ActiveRecord
      */
     public function getForum()
     {
-        return $this->hasOne(static::className(), ['id' => 'forum_id']);
+        return $this->hasOne(Forum::className(), ['id' => 'forum_id']);
     }
 }
