@@ -137,7 +137,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                         <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
                         <!--                            <hr/>-->
                         <div>
-                            <p><b>Depression:</b></p>
+                            <p><b><?php echo Yii::t('podium/view', 'Depression');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
                                 $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, $model->inherited_id);
@@ -167,7 +167,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                         <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
                         <hr/>
                         <div>
-                            <p><b>Anxiety:</b></p>
+                            <p><b><?php echo Yii::t('podium/view', 'Anxiety');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
                                 $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, $model->inherited_id);
@@ -198,7 +198,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                         <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
                         <!--                            <hr/>-->
                         <div>
-                            <p><b>More Help:</b></p>
+                            <p><b><?php echo Yii::t('podium/view', 'More Help');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
                                 $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
