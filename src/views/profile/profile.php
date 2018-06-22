@@ -47,7 +47,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                     <!--                    --><?php //if (!empty(AppUser::getUserDepressionImageList($model->inherited_id))) : ?>
 
                     <div>
-                        <p class="module-name-forum"><b>Depression:</b></p>
+                        <p class="module-name-forum"><b><?php echo Yii::t('podium/view', 'Depression');?></b>:</p>
                         <ul class="list-inline">
                             <?php
                             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
@@ -78,7 +78,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                     <!--                    --><?php //if (!empty(AppUser::getUserAnxietyImageList($model->inherited_id))) : ?>
 
                     <div>
-                        <p class="module-name-forum"><b>Anexiety:</b></p>
+                        <p class="module-name-forum"><b><?php echo Yii::t('podium/view', 'Anxiety');?></b>:</p>
                         <ul class="list-inline">
                             <?php
                             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
@@ -112,7 +112,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                     <!--                    --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
                     <hr/>
                     <div>
-                        <p class="module-name-forum"><b>More Help:</b></p>
+                        <p class="module-name-forum"><b><?php echo Yii::t('podium/view', 'More Help');?></b>:</p>
                         <ul class="list-inline">
                             <?php
                             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);

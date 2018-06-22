@@ -33,18 +33,18 @@ use app\models\Client;
             <nav id="main-menu" class="navbar-collapse navbar-right collapse" aria-expanded="false">
                 <ul class="nav navbar-nav">
 
-                    <li class=""><?= Html::a('Home', ['/clinic/index'], ['class' => 'profile-link']) ?></li>
-                    <li><?= Html::a('Profile', ['/community/profile']) ?></li>
+                    <li class=""><?= Html::a(Yii::t('podium/view', 'Home'), ['/clinic/index'], ['class' => 'profile-link']) ?></li>
+                    <li><?= Html::a(Yii::t('podium/view', 'Profile'), ['/community/profile']) ?></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true" aria-expanded="false">Community <span class="caret"></span></a>
+                           aria-haspopup="true" aria-expanded="false"><?php echo(Yii::t('podium/view', 'Community')) ?><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><?= Html::a('Anxiety', ['/community/category/3/anxiety']) ?></li>
-                            <li><?= Html::a('Depression', ['/community/category/4/depression']) ?></li>
-                            <li><?= Html::a('Helping Fellow Members', ['/community/help']) ?></li>
-                            <li class=""><?= Html::a(Yii::t('common', 'Members'), ['/community/members'], ['class' => 'profile-link']) ?></li>
-                            <li><?= Html::a('Community Settings', ['profile/forum']) ?></li>
-                            <li><?= Html::a('Messages', ['messages/inbox']) ?></li>
+                            <li><?= Html::a(Yii::t('podium/view', 'Anxiety'), ['/community/category/3/anxiety']) ?></li>
+                            <li><?= Html::a(Yii::t('podium/view', 'Depression'), ['/community/category/4/depression']) ?></li>
+                            <li><?= Html::a(Yii::t('podium/view', 'Helping Fellow Members'), ['/community/help']) ?></li>
+                            <li class=""><?= Html::a(Yii::t('podium/view', 'Members'), ['/community/members'], ['class' => 'profile-link']) ?></li>
+                            <li><?= Html::a(Yii::t('podium/view', 'Community Settings'), ['profile/forum']) ?></li>
+                            <li><?= Html::a(Yii::t('podium/view', 'Messages'), ['messages/inbox']) ?></li>
 
                         </ul>
                     </li>
@@ -63,7 +63,7 @@ use app\models\Client;
                                 <?php $domain = $_SERVER['HTTP_HOST'];
                                 if ($domain != 'homewood.evolutionhealth.care' && $domain != 'www.homewood.evolutionhealth.care') { ?>
                                     <li>
-                                        <?= Html::a(Yii::t('common', 'Signup'), ['/clinic/signup']) ?>
+                                        <?= Html::a(Yii::t('podium/view', 'Signup'), ['/clinic/signup']) ?>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -73,11 +73,11 @@ use app\models\Client;
                     <li class="eh_input_btn_in_nav_box" data-inline="<?php echo Yii::$app->user->identity->username?>">
                         <?= Html::beginForm(['/site/logout'], 'post') ?>
                         <?= Html::submitButton(
-                            Yii::t('common', 'Logout / ') . mb_strimwidth(Yii::$app->user->identity->username,0,8,"...") ,
+                            Yii::t('podium/view', 'Logout / ') . mb_strimwidth(Yii::$app->user->identity->username,0,8,"...") ,
                             ['class' => 'btn btn-link logout']
                         ); ?>
                         <?= Html::submitButton(
-                            Yii::t('common', 'Logout / (') . Yii::$app->user->identity->username . ' )',
+                            Yii::t('podium/view', 'Logout / (') . Yii::$app->user->identity->username . ' )',
                             ['class' => 'btn btn-link logout logout_hidden_hover']
                         ); ?>
                         <?= Html::endForm() ?>

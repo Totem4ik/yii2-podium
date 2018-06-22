@@ -21,13 +21,13 @@ $lastActive = Activity::lastActive();
             <?= Yii::t('podium/view', '{n, plural, =1{# guest} other{# guests}}', ['n' =>  !empty($lastActive['guests']) ? $lastActive['guests']+16 : $lastActive['guests']+16]) ?>
 
         </p>
-        <?php if (!empty($lastActive['names'])): ?>
-            <p>
-                <?php foreach ($lastActive['names'] as $id => $name): ?>
-                    <?= Helper::podiumUserTag($name['name'], $name['role'], $id, $name['slug']) ?>
-                <?php endforeach; ?>
-            </p>
-        <?php endif; ?>
+<?php if (!empty($lastActive['names'])): ?>
+        <p>
+<?php foreach ($lastActive['names'] as $id => $name): ?>
+            <?= Helper::podiumUserTag($name['name'], $name['role'], $id, $name['slug']) ?>
+<?php endforeach; ?>
+        </p>
+<?php endif; ?>
     </div>
     <div class="panel-footer small">
         <ul class="list-inline">

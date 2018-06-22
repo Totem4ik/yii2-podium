@@ -44,6 +44,13 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             font-family: <?php echo $font['name']?>, sans-serif !important;
         }
     </style>
+    <?php if(Yii::$app->language=='fr-FR'): ?>
+        <style>
+            .eh_input_btn_in_nav_box:after {
+                content: 'Fermeture la session / 'attr(data-inline);
+            }
+        </style>
+    <?php endif;?>
 </head>
 
 <body>
