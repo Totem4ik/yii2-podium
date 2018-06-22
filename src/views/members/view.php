@@ -35,7 +35,7 @@ if (!Podium::getInstance()->user->isGuest) {
     $ignored = $model->isIgnoredBy($loggedId);
     $friend = $model->isBefriendedBy($loggedId);
 }
-
+$uid = $model->mainUser->parent_id ?: $model->mainUser->id;
 ?>
     <ul class="nav nav-tabs">
         <li role="presentation">
@@ -201,28 +201,30 @@ if (!Podium::getInstance()->user->isGuest) {
                             <p><b>More Help:</b></p>
                             <ul class="list-inline">
                                 <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, $model->inherited_id);
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
+                                $imageCupListAn = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
                                         <?php
                                         $logo = $i + 1;
                                         if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupListAn[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
+                                            echo Html::a(Html::img($imageCupListAn[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px']));
 
                                         }
                                         if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupListAn[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_MORE_HELP . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupListAn[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         ?>
                                         </a>
                                     </li>
                                 <?php endfor; ?>
+
                             </ul>
 
                         </div>
