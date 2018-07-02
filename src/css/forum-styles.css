@@ -539,7 +539,7 @@ a:hover {
     font-weight: 700;
     margin-bottom: 16px;
     font-size: 36px;
-    //text-transform: capitalize;
+//text-transform: capitalize;
     color: rgb(0, 114, 188);
 }
 
@@ -1470,3 +1470,10 @@ body {
     margin:40px 0 0 0;
     font-size: 24px
 }
+
+@media(max-width:570px) {
+    .margin-bottom-trophies .list-inline > li{
+        margin-bottom: 10px;
+    }
+}
+
