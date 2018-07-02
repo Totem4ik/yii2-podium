@@ -140,22 +140,23 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                             <p><b><?php echo Yii::t('podium/view', 'Depression');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, $model->inherited_id);
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
+                                $imageCupList = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_DEPRESSION, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
                                         <?php
                                         $logo = $i + 1;
                                         if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH. $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
+                                            echo Html::a(Html::img($imageCupList[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
+                                            echo Html::a(Html::img($imageCupList[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                         }
                                         ?>
                                         </a>
@@ -168,37 +169,6 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                         <hr/>
                         <div>
                             <p><b><?php echo Yii::t('podium/view', 'Anxiety');?></b>:</p>
-                            <ul class="list-inline">
-                                <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, $model->inherited_id);
-                                for ($i = 0; $i < count($moduleSessions); $i++) :?>
-                                    <li>
-                                        <?php
-                                        $logo = $i + 1;
-                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                        }
-                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i]));
-
-                                        }
-                                        if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                        }
-                                        if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
-                                            echo Html::a(Html::img(Client::LOGO_CUP_PATH_ANXIETY . $logo . '.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'class' => ['logocup'], 'rel' => 'myModalBox' . $i, 'alt' => 'My Logo']));
-                                        }
-                                        ?>
-                                        </a>
-                                    </li>
-                                <?php endfor; ?>
-                            </ul>
-                        </div>
-                        <!--                        --><?php //endif; ?>
-                        <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
-                        <!--                            <hr/>-->
-                        <div>
-                            <p><b><?php echo Yii::t('podium/view', 'More Help');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
                                 $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
@@ -225,6 +195,38 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                                     </li>
                                 <?php endfor; ?>
 
+                            </ul>
+                        </div>
+                        <!--                        --><?php //endif; ?>
+                        <!--                        --><?php //if (isset($model->inherited_id) && !empty(AppUser::getUserMoreHelpImageList($model->inherited_id))) : ?>
+                        <!--                            <hr/>-->
+                        <div>
+                            <p><b><?php echo Yii::t('podium/view', 'More Help');?></b>:</p>
+                            <ul class="list-inline">
+                                <?php
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
+                                $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_MORE_HELP, $uid);
+                                for ($i = 0; $i < count($moduleSessions); $i++) :?>
+                                    <li>
+                                        <?php
+                                        $logo = $i + 1;
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
+                                            echo Html::a(Html::img($imageCupListMH[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
+                                        }
+                                        if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
+                                            echo Html::a(Html::img($imageCupListMH[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px']));
+
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
+                                            echo Html::a(Html::img($imageCupListMH[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
+                                        }
+                                        if ($moduleSessions[$i]['passed'] == 1 && $i != 0) {
+                                            echo Html::a(Html::img($imageCupListMH[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
+                                        }
+                                        ?>
+                                        </a>
+                                    </li>
+                                <?php endfor; ?>
                             </ul>
 
                         </div>
