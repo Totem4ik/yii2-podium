@@ -93,7 +93,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             <div class="col-sm-12 text-center">
                 <p>
                     <?php echo Yii::t('common', 'There are {guest} guests browsing.',
-                        ['guest' => $lastActive['count'] + 16
+                        ['guest' => \app\models\SiteUserActivity::getUserCount()
                         ]) ?>
                     <?php $post = \bizley\podium\models\Post::getTotalPosts();
                     $topic = \bizley\podium\models\Thread::getTotalThreads();
