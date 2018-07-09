@@ -57,10 +57,10 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                                     <?php
                                     $logo = $i + 1;
                                     if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
+                                        echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                     }
                                     if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                                        echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
+                                        echo Html::a(Html::img($imageCupList[$i]['active_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                                     }
                                     if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
                                         echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
@@ -116,7 +116,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                         <ul class="list-inline">
                             <?php
                             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
-                            $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
+                            $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_MORE_HELP, $uid);
                             for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                 <li>
                                     <?php

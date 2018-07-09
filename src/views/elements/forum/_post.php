@@ -98,10 +98,10 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                     <?php
                     $logo = $i + 1;
                     if ($i == 0 && $moduleSessions[$i]['passed'] == 0) {
-                        echo Html::a(Html::img(Client::LOGO_CUP_PATH . $logo . '-faded.png', ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
+                        echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '40px', 'height' => '60px', 'alt' => 'My Logo']));
                     }
                     if ($i == 0 && $moduleSessions[$i]['passed'] == 1) {
-                        echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
+                        echo Html::a(Html::img($imageCupList[$i]['active_img'], ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
                     }
                     if ($moduleSessions[$i]['passed'] == 0 && $i != 0) {
                         echo Html::a(Html::img($imageCupList[$i]['hide_img'], ['title' => 'Main Logo', 'width' => '19px', 'height' => '19px', 'alt' => 'My Logo']));
