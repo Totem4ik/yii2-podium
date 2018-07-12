@@ -104,6 +104,8 @@ return [
     'and/or' => 'et/ou',
     'Select a friend...' => 'Sélectionner des destinataires',
     'Unsubscribe' => 'Desinscire',
+    'Mark seen' => 'Marquer comme lue',
+    'Mark unseen' => 'Marquer commme non lue',
 
 
 
