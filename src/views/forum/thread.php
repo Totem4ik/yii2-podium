@@ -171,11 +171,6 @@ if ($thread->locked) {
 <?php if ($thread->locked == 0 || ($thread->locked == 1 && User::can(Rbac::PERM_UPDATE_THREAD, ['item' => $thread]))): ?>
 <?php if (!Podium::getInstance()->user->isGuest): ?>
 <br>
-<div class="row">
-    <div class="col-sm-12 text-right">
-        <a href="<?= Url::to(['forum/post', 'cid' => $thread->forum->category->id, 'fid' => $thread->forum->id, 'tid' => $thread->id]) ?>" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-leaf"></span> <?= Yii::t('podium/view', 'New Reply'); ?></a>
-    </div>
-</div>
 <br>
 <div class="row">
     <div class="col-sm-2 text-center">
