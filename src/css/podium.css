@@ -4,7 +4,7 @@ body { padding-top:20px; padding-bottom:20px }
 .note-editor .note-dialog .form-group.row-fluid.note-group-select-from-files { display:none }
 .popover.podium { display:block !important; width:auto !important; max-width:none !important; position:relative !important; z-index:auto !important }
 .popover.right.podium > .arrow { top:55px !important }
-.podium-action-bar { position:absolute; bottom:10px; right:10px; display:none }
+.podium-action-bar { position:absolute; bottom:10px; right:10px; }
 .podium-action-bar.list-inline > li { padding-right:1px; padding-left:1px }
 .podium-content { padding-bottom:17px }
 .podium-content:hover .podium-action-bar { display:block }

@@ -325,36 +325,43 @@ class Post extends PostActiveRecord
      * @param int $limit
      * @return array
      */
-	public static function getLatest($limit = 5)
-	{
-		$cacheKey = Podium::getInstance()->user->isGuest ? 'guest' : 'member';
-		$method = Podium::getInstance()->user->isGuest ? 'getLatestPostsForGuests' : 'getLatestPostsForMembers';
-		$latest = Podium::getInstance()->podiumCache->getElement('forum.latestposts', $cacheKey);
+	public static function getLatest($limit = 4)
+{
+    $cacheKey = Podium::getInstance()->user->isGuest ? 'guest' : 'member';
+    $method = Podium::getInstance()->user->isGuest ? 'getLatestPostsForGuests' : 'getLatestPostsForMembers';
+    $latest = Podium::getInstance()->podiumCache->getElement('forum.latestposts', $cacheKey);
+    $latest=false;
+    if ($latest === false) {
+        $posts = static::$method($limit);
+        foreach ($posts as $post) {
+            if($post->author->role==\bizley\podium\models\User::ROLE_MODERATOR){
+                $userLink = '/community/members/view/?id='. $post->author->id .'&slug='. $post->author->slug;
+            } else{
+                $userLink = '/community/members/view/'. $post->author->id .'/'. $post->author->slug;
+            }
 
-		if ($latest === false) {
-			$posts = static::$method($limit);
-			foreach ($posts as $post) {
-				$latest[] = [
-					'id' => $post->id,
-					'title' => $post->thread->name,
-					'created' => $post->created_at,
-					'author' => $post->author->podiumTag,
-					'authorName' => $post->author->username,
-					'authorLogo' => $post->author->mainUser->logo_patient ?: 'baselogo.png',
-					'authorLink' => '/community/members/view/'. $post->author->id .'/'. $post->author->slug,
-					'threadLink' => '/community'.Url::to(['forum/thread',
+            $latest[] = [
+                'id' => $post->id,
+                'title' => $post->thread->name,
+                'created' => $post->created_at,
+                'author' => $post->author->podiumTag,
+                'authorName' => $post->author->username,
+                'authorLogo' => $post->author->mainUser->logo_patient ?: 'baselogo.png',
+                'authorLink' => $userLink,
+                'threadLink' => '/community'.Url::to(['forum/thread',
                         'cid' => $post->thread->category_id,
                         'fid' => $post->forum_id,
                         'id' => $post->thread_id,
                         'slug' => $post->thread->slug
                     ])
+
 //                        '/community/thread/' . $post->thread->category_id . '/' . $post->thread->forum_id . '/' . $post->thread->id . '/' . $post->thread->slug,
-				];
-			}
-			Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
-		}
-		return $latest;
-	}
+            ];
+        }
+        Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
+    }
+    return $latest;
+}
 
     /**
      * Returns the verified post.

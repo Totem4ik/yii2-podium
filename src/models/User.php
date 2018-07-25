@@ -259,7 +259,8 @@ class User extends UserActiveRecord
      */
     public static function findPostsCount($id)
     {
-        $cache = Podium::getInstance()->podiumCache->getElement('user.postscount', $id);
+       $cache = Podium::getInstance()->podiumCache->getElement('user.postscount', $id);
+        $cache=false;
         if ($cache === false) {
             $cache = (new Query)->from(Post::tableName())->where(['author_id' => $id])->count();
             Podium::getInstance()->podiumCache->setElement('user.postscount', $id, $cache);
@@ -327,6 +328,8 @@ class User extends UserActiveRecord
     public static function findThreadsCount($id)
     {
         $cache = Podium::getInstance()->podiumCache->getElement('user.threadscount', $id);
+        $cache=false;
+
         if ($cache === false) {
             $cache = (new Query)->from(Thread::tableName())->where(['author_id' => $id])->count();
             Podium::getInstance()->podiumCache->setElement('user.threadscount', $id, $cache);

@@ -55,6 +55,7 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
 
 <body>
 
+<div class="hide userIsLogin"><?php echo !Yii::$app->user->isGuest ?></div>
 <div class="eh_top_slider eh_clear_top_slider">
     <div class="schedule-tab">
         <div class="tab-list text-center">
@@ -92,9 +93,9 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
         <div class="row">
             <div class="col-sm-12 text-center">
                 <p>
-                    <?php echo Yii::t('common', 'There are {guest} guests browsing.',
-                        ['guest' => \app\models\SiteUserActivity::getUserCount()
-                        ]) ?>
+<!--                    --><?php //echo Yii::t('common', 'There are {guest} guests browsing.',
+//                        ['guest' => \app\models\SiteUserActivity::getUserCount()
+//                        ]) ?>
                     <?php $post = \bizley\podium\models\Post::getTotalPosts();
                     $topic = \bizley\podium\models\Thread::getTotalThreads();
                     echo Yii::t('common', 'Browse through {post} posts in {topics} threads.',
@@ -154,6 +155,49 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
             <?= Yii::t('common', 'All Rights Reserved.') ?> <?php echo (Yii::$app->language == 'fr-FR') ? date('Y') : '' ?>
         </p>
     </div>
+    <div class="modal fade" id="modal-logout-message1" tabindex="-3" role="dialog" aria-labelledby="modal-note_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p class="text-center"> <?php echo Yii::t('common','Session Timeout Warning')?></p>
+                    <p><?php echo  Yii::t('common','It’s been a while since you were active on this site. Please extend your session below')?></p>
+                    <?= Html::button(Yii::t('common','Extend Session'),  ['class'=>'btn btn-primary extend-session center-block','type'=>'button']) ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-logout-message2" tabindex="-3" role="dialog" aria-labelledby="modal-note_label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p class="text-center"><?php echo  Yii::t('common','You have been logged out due to inactivity.')?>  </p>
+                    <p><?php echo   Yii::t('common','Please sign back in.')?></p>
+                    <?= Html::button(Yii::t('common','Sign in'),  ['class'=>'btn btn-primary center-block logout-action','type'=>'button']) ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php $this->registerJsFile(
+        '@web/js/logout-client.js',
+        ['depends' => [\yii\web\JqueryAsset::className()]]
+    );
+//    $this->registerJsFile(
+////        '/js/quill-emoji-master/dist/quill-emoji.js'
+////            '/vendor/bizley/podium/src/js/quill-emoji-master/dist/quill-emoji.js'
+////        '@webroot/../vendor/bizley/podium/src/js/quill-emoji-master/dist/test.js'
+////        '@podium/../vendor/bizley/podium/src/js/quill-emoji-master/dist/test.js'
+//        '@vendor/bizley/podium/src/js/quill-emoji-master/dist/test.js'
+//
+////        ['depends' => [\bizley\quill\QuillAsset::className()]]
+//    );
+//   ?>
+
 </footer>
 <?php $this->endBody() ?>
 

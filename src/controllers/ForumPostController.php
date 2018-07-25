@@ -32,6 +32,7 @@ class ForumPostController extends ForumThreadController
      */
     public function behaviors()
     {
+
         return [
             'access' => [
                 'class' => AccessControl::className(),
