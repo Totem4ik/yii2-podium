@@ -117,7 +117,41 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                     </h2>
 
                     <p><?= Yii::t('podium/view', 'Member since {date}', ['date' => Podium::getInstance()->formatter->asDatetime($model->created_at, 'long')]) ?>
-                        (<?= Podium::getInstance()->formatter->asRelativeTime($model->created_at) ?>)</p>
+                        (<?= Podium::getInstance()->formatter->asRelativeTime($model->created_at) ?>)
+
+                        <span class="popup-medals" id="#start_modal1" style="margin-left:20px">
+                            <span class="label label-info" data-toggle="tooltip" data-placement="top"
+                                  title="<?= Yii::t('podium/view', 'Number of posts') ?>">
+                                <?= $model->postsCount ?>
+                             </span>
+                            <?php
+                            $imageTrophy = $model->getImageByPostCount();
+                            $files = Client::getImagesFromTrophyFolder();
+                            $countStar = 0;
+                            if (!empty($imageTrophy)) {
+                                $countStar = Client::getStars($imageTrophy);
+                            }
+                            if (isset($files)):
+                                foreach ($files as $key => $file) :
+                                    if ($file == '.' || $file == '..') {
+                                        continue;
+                                    }
+                                    $countStar--;
+                                    $path = Client::MEDALS_PATH . $file;
+                                    if ($countStar >= 0) :?>
+                                        <a href="#start_modal1"
+                                           data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
+                                         </a>
+                                    <?php else: ?>
+                                        <a href="#start_modal1"
+                                           data-toggle="modal"><?php echo HTML::img($path, $options = ['title' => 'Main Logo', 'class' => 'medal-opacity', 'alt' => 'logo', 'width' => '20px', 'height' => '20px']); ?>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </span>
+
+                    </p>
                     <?php if ($model->status != User::STATUS_REGISTERED): ?>
                         <p>
                             <a href="<?= Url::to(['members/threads', 'id' => $model->id, 'slug' => $model->podiumSlug]) ?>"
@@ -276,4 +310,15 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
         <strong><?= Yii::t('podium/view', 'You can always unignore the user if you change your mind later on.') ?></strong>
     </p>
     <?php Modal::end() ?>
-<?php endif;
+<?php endif; ?>
+<div id="start_modal1" class="modal fade">
+    <div class="modal-dialog modal-dialog-medals">
+        <div class="modal-content">
+            <!-- Заголовок модального окна -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title"><?php echo HTML::img('/uploads/img-medals.jpg', $options = ['title' => 'Main Logo', 'alt' => 'logo']); ?></h4>
+            </div>
+        </div>
+    </div>
+</div>
