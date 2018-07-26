@@ -1476,4 +1476,7 @@ body {
         margin-bottom: 10px;
     }
 }
+#modal-logout-message1,#modal-logout-message2 {
+    background: rgba(0, 0, 0, 0.91);
+}
 

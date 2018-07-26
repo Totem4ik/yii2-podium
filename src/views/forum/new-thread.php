@@ -84,3 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div><br>
+
+<?php
+$this->registerJsFile('@web/js/quill-emoji.js', ['depends' => [\bizley\quill\QuillAsset::className()]]);
+?>

@@ -15,16 +15,17 @@ class PodiumAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@podium/css';
+    public $sourcePath = '@podium';
 
     /**
      * @inheritdoc
      */
     public $css = [
-        'podium.css',
-		'forum-styles.css',
-		
-        
+        'css/podium.css',
+		'css/forum-styles.css',
+        'js/quill-emoji-master/dist/quill-emoji.css',
+
+
     ];
 	public $publishOptions = [
         'forceCopy'=>true,

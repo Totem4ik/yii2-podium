@@ -84,7 +84,7 @@ $this->registerJs("$('[data-toggle=\"tooltip\"]').tooltip();");
             <div class="row">
                 <div class="col-md-3 text-right"><p class="form-control-static"><?= Yii::t('podium/view', 'Message Content') ?></p></div>
                 <div class="col-md-9">
-                    <?= $form->field($model, 'content')->label(false)->widget(EditorBasic::className()) ?>
+                    <?= $form->field($model, 'content')->label(false)->widget(\bizley\podium\widgets\editor\EditorFull::className()) ?>
                 </div>
             </div>
             <div class="row">
@@ -95,3 +95,6 @@ $this->registerJs("$('[data-toggle=\"tooltip\"]').tooltip();");
         <?php ActiveForm::end(); ?>
     </div>
 </div><br>
+    <?php
+    $this->registerJsFile('@web/js/quill-emoji.js', ['depends' => [\bizley\quill\QuillAsset::className()]]);
+    ?>
