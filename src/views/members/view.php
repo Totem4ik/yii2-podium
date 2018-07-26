@@ -114,7 +114,9 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                     <h2>
                         <?= Html::encode($model->podiumName) ?>
                         <small><?= Helper::roleLabel($model->role) ?></small>
+
                     </h2>
+
 
                     <p><?= Yii::t('podium/view', 'Member since {date}', ['date' => Podium::getInstance()->formatter->asDatetime($model->created_at, 'long')]) ?>
                         (<?= Podium::getInstance()->formatter->asRelativeTime($model->created_at) ?>)
@@ -170,7 +172,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                             <p><b><?php echo Yii::t('podium/view', 'Depression');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, false);
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::DEPRESSION_MODULE, $model->inherited_id);
                                 $imageCupList = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_DEPRESSION, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
@@ -198,7 +200,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                             <p><b><?php echo Yii::t('podium/view', 'Anxiety');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, false);
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::ANXIETY_MODULE, $model->inherited_id);
                                 $imageCupListAn = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
@@ -228,8 +230,8 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                             <p><b><?php echo Yii::t('podium/view', 'More Help');?></b>:</p>
                             <ul class="list-inline">
                                 <?php
-                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, false);
-                                $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_MORE_HELP, $uid);
+                                $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, $model->inherited_id);
+                                $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
                                         <?php
@@ -252,10 +254,8 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                                     </li>
                                 <?php endfor; ?>
                             </ul>
-
                         </div>
                     </div>
-
                     <?php endif; ?>
                 </div>
                 <?php if ($model->role == User::ROLE_MODERATOR && !empty($model->mods)): ?>
