@@ -144,7 +144,7 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
         <ul class="list-inline small-trophies">
             <?php
             $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, $client->inherited_id);
-            $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
+            $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_MORE_HELP, $uid);
             for ($i = 0; $i < count($moduleSessions); $i++) :?>
                 <li>
                     <?php
@@ -205,6 +205,7 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                 <span class="popup-medals" id="#start_modal1">
                 <?php
                 $imageTrophy = $model->author->getImageByPostCount();
+                //                var_dump($model);die;
                 $files = Client::getImagesFromTrophyFolder();
                 $countStar = 0;
                 if (!empty($imageTrophy)) {
