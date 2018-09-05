@@ -16,9 +16,11 @@ $this->registerJs("$('[data-toggle=\"popover\"]').popover();");
 $postModel = $model;
 ?>
 <td class="podium-thread-line">
-    <a href="<?= Url::to(['forum/show', 'id' => $postModel->id]) ?>" class="podium-go-to-new pull-right" style="margin-right:10px" data-toggle="popover" data-container="body" data-placement="left" data-trigger="hover focus" data-html="true" data-content="<small><?= Html::encode(strip_tags($postModel->parsedContent)) ?><br><strong><?= $postModel->author->podiumName ?></strong> <?= Podium::getInstance()->formatter->asRelativeTime($postModel->updated_at) ?></small>" title="<?= Yii::t('podium/view', 'Found Post') ?>">
-        <span class="glyphicon glyphicon-comment"></span>
-    </a>
+    <?php if (isset($postModel->author->podiumName)) :?>
+        <a href="<?= Url::to(['forum/show', 'id' => $postModel->id]) ?>" class="podium-go-to-new pull-right" style="margin-right:10px" data-toggle="popover" data-container="body" data-placement="left" data-trigger="hover focus" data-html="true" data-content="<small><?= Html::encode(strip_tags($postModel->parsedContent)) ?><br><strong><?= $postModel->author->podiumName ?></strong> <?= Podium::getInstance()->formatter->asRelativeTime($postModel->updated_at) ?> </small>"  title="<?= Yii::t('podium/view', 'Found Post') ?>">
+            <span class="glyphicon glyphicon-comment"></span>
+        </a>
+    <?php endif;?>
     <a href="<?= Url::to(['forum/show', 'id' => $postModel->id]) ?>" class="pull-left btn btn-<?= $postModel->thread->getCssClass() ?>" style="margin-right:10px" data-toggle="tooltip" data-placement="top" title="<?= $postModel->thread->getDescription() ?>">
         <span class="glyphicon glyphicon-<?= $postModel->thread->getIcon() ?>"></span>
     </a>
@@ -33,5 +35,5 @@ $postModel = $model;
     <?= $postModel->thread->views ?>
 </td>
 <td>
-    <small><?= $postModel->author->podiumTag ?><br><?= Podium::getInstance()->formatter->asDatetime($postModel->created_at) ?></small>
+    <small><?= $postModel->author->podiumTag ?? " " ?><br><?= Podium::getInstance()->formatter->asDatetime($postModel->created_at) ?></small>
 </td>
