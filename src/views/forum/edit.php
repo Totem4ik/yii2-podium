@@ -21,31 +21,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <?php if (!empty($preview)): ?>
-<div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-        <?= Alert::widget([
-            'body' => '<strong><small>'
-                        . Yii::t('podium/view', 'Post Preview')
-                        . '</small></strong>:<hr>'
-                        . $model->parsedContent,
-            'options' => ['class' => 'alert-info']
-        ]); ?>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <?= Alert::widget([
+                'body' => '<strong><small>'
+                    . Yii::t('podium/view', 'Post Preview')
+                    . '</small></strong>:<hr>'
+                    . $model->parsedContent,
+                'options' => ['class' => 'alert-info']
+            ]); ?>
+        </div>
     </div>
-</div>
 <?php endif; ?>
 
-<div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-        <div class="panel panel-default">
-            <?php $form = ActiveForm::begin(['id' => 'edit-post-form']); ?>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="panel panel-default">
+                <?php $form = ActiveForm::begin(['id' => 'edit-post-form']); ?>
                 <div class="panel-body">
-<?php if ($isFirstPost): ?>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <?= $form->field($model, 'topic')->textInput(['autofocus' => true])->label(Yii::t('podium/view', 'Topic')) ?>
+                    <?php if ($isFirstPost): ?>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?= $form->field($model, 'topic')->textInput(['autofocus' => true])->label(Yii::t('podium/view', 'Topic')) ?>
+                            </div>
                         </div>
-                    </div>
-<?php endif; ?>
+                    <?php endif; ?>
                     <div class="row">
                         <div class="col-sm-12">
                             <?= $form->field($model, 'content')->label(false)->widget(EditorFull::className()) ?>
@@ -62,7 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-            <?php ActiveForm::end(); ?>
+                <?php ActiveForm::end(); ?>
+            </div>
         </div>
-    </div>
-</div><br>
+    </div><br>
+<?php
+$this->registerJsFile('@web/js/quill-emoji.js', ['depends' => [\bizley\quill\QuillAsset::className()]]);
+?>
