@@ -27,6 +27,12 @@ class PodiumAsset extends AssetBundle
 
 
     ];
+	
+	public $js = [
+        'js/scripts.js',
+
+    ];
+	
 	public $publishOptions = [
         'forceCopy'=>true,
       ];

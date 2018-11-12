@@ -97,7 +97,7 @@ class MessageActiveRecord extends ActiveRecord
                 return HtmlPurifier::process(trim($value));
             }],
             ['content', 'filter', 'filter' => function($value) {
-                if(stristr($value,'<img src="/uploads/forum/')){
+                if($val=stristr($value,'<img src="/uploads/forum/')){
                 return $value;
                 }
                 if (Podium::getInstance()->podiumConfig->get('use_wysiwyg') == '0') {

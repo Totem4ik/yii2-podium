@@ -1480,3 +1480,113 @@ body {
     background: rgba(0, 0, 0, 0.91);
 }
 
+/*cookies modal styles*/
+.cookie-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-align: center;
+    padding: 1rem 2rem;
+    background: #3b4045;
+    color: #fff;
+    transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 2000;
+}
+.cookie-box .close{
+    position: absolute;
+    right: 30px;
+    top: 5px;
+    font-size: 30px;
+    color: #fff;
+    opacity: 1;
+}
+.cookie-box .close:hover{
+    opacity: .8;
+}
+.cookie-box--hide {
+    top: -100%;
+}
+
+body.cookiewarning {
+    padding-bottom: 15em;
+}
+body div.cookiewarning {
+    display: none;
+}
+body.cookiewarning div.cookiewarning {
+    padding: 1em;
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(0,0,0,.8);
+    color: white;
+}
+
+body .removecookie {
+    display: inline-block;
+}
+
+body.cookiewarning .removecookie {
+    display: none;
+}
+body .eh_terms_list {
+    list-style: none;
+}
+.eh_terms_list ol {
+    list-style: none;
+}
+dropdown-menu.flag li  img{
+    height: 20px;
+}
+.nav .flag-toggle img {
+    width: 20px;
+    /*margin-bottom: -6px;*/
+}
+
+.flag-select-box {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.flag-select-box img {
+
+}
+
+.flag-select-box a {
+
+}
+.dropdown-menu.flag li  a{
+    display:inline;
+    padding-left: 7px;
+    padding-right: 6px;
+    line-height: 1.5;
+    color: #337ab7;
+}
+.eh_input_btn_in_nav_box:after {
+    content: 'Logout / 'attr(data-inline);
+    display: none;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    overflow: inherit;
+    color: #0EB1F2;
+    border-bottom: 3px solid #0EB1F2;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 4px 15px;
+    line-height: 70px;
+    /*background-color: white;*/
+    z-index: 999;
+
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(255,255,255,0.78) 100%);
+    background: -webkit-linear-gradient(left, rgba(255,255,255,1) 0%,rgba(255,255,255,0.78) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,0.78) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#94ffffff',GradientType=1 );
+
+}

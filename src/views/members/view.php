@@ -231,7 +231,7 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                             <ul class="list-inline">
                                 <?php
                                 $moduleSessions = ModuleQuiz::getModuleQuiz(Module::MORE_HELP_MODULE, $model->inherited_id);
-                                $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_ANXIETY, $uid);
+                                $imageCupListMH = \app\models\Trophy::getMainCupByType(\app\models\Trophy::TYPE_MORE_HELP, $uid);
                                 for ($i = 0; $i < count($moduleSessions); $i++) :?>
                                     <li>
                                         <?php
@@ -254,8 +254,10 @@ $uid = $model->mainUser->parent_id ?: $model->mainUser->id;
                                     </li>
                                 <?php endfor; ?>
                             </ul>
+
                         </div>
                     </div>
+
                     <?php endif; ?>
                 </div>
                 <?php if ($model->role == User::ROLE_MODERATOR && !empty($model->mods)): ?>

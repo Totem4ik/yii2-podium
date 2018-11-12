@@ -24,6 +24,10 @@ class Controller extends BaseController
             $accessSite = new CheckAccessClient($_SERVER['HTTP_HOST']);
             $accessSite->checkAccess();
         }
+		if(!Yii::$app->site->useCommunity){
+            Yii::$app->getResponse()->redirect('/');
+            return false;
+        }
         return parent::beforeAction($action);
     }
 

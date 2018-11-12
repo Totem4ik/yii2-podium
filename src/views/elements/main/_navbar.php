@@ -96,32 +96,106 @@ use app\models\Client;
                 <?php } ?>
 
                 <?php } ?>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">
-                            <?php if (Yii::$app->language === 'fr-FR') { ?>
-                                <span class="flag-icon"></span>
-                                Français
-                                <span class="caret"></span>
-                            <?php } else { ?>
-                                <span class="flag-icon"></span>
-                                English
-                                <span class="caret"></span>
-                            <?php } ?>
-                        </a>
-                        <ul class="dropdown-menu">
 
-                            <?php if (Yii::$app->language === 'fr-FR') : ?>
-                                <li>
-                                    <?= Html::a('ENGLISH', ['/clinic/language', 'id' => 'en-EN']); ?>
-                                </li>
-                            <?php else: ?>
-                                <li>
-                                    <?= Html::a('Français', ['/clinic/language', 'id' => 'fr-FR']); ?>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
+<?php
+                        $showCanadianEnglish = Client::showEnEnglishLanguageLink();
+                        $showCanadianFrench = Client::showFranceLanguageLink();
+                        $showUsEnglish = Client::showUsEnglishLanguageLink();
+                        ?>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle flag-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+
+                                <?php if (Yii::$app->language === 'fr-FR' && $showCanadianFrench) : ?>
+                                    <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/Canada.png', $options = ['alt' => 'logo']); ?>
+                                    Français Canadien
+                                    <span class="caret"></span>
+
+                                <?php elseif ((Yii::$app->language === 'en-US' && $showUsEnglish)): ?>
+                                    <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/United-States.png', $options = ['alt' => 'flag']); ?>
+                                    US English
+                                    <span class="caret"></span>
+
+                                <?php else: ?>
+                                    <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/Canada.png', $options = ['alt' => 'flag']); ?>
+                                    Canadian English
+                                    <span class="caret"></span>
+                                <?php endif ?>
+
+                            </a>
+
+
+                            <ul class="dropdown-menu flag">
+                                <?php if (Yii::$app->language === 'fr-FR') : ?>
+                                    <li>
+                                        <?php if ($showCanadianEnglish) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/Canada.png', $options = ['alt' => 'flag']);
+                                                echo (Client::showEnEnglishLanguageLink())
+                                                    ? Html::a('Canadian English', ['/clinic/language', 'id' => 'en-EN'])
+                                                    : Html::a('Canadian English'); ?>
+                                            </div>
+                                        <?php endif; ?>
+
+
+                                        <?php if ($showUsEnglish) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/United-States.png', $options = ['alt' => 'flag', 'style' => 'padding-bottom:5px']);
+                                                echo Html::a('US ENGLISH', ['/clinic/language', 'id' => 'en-US']); ?>
+
+                                            </div>
+                                        <?php endif; ?>
+                                    </li>
+
+                                <?php elseif (Yii::$app->language === 'en-US'): ?>
+
+                                    <li>
+                                        <?php if ($showCanadianEnglish) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/Canada.png', $options = ['alt' => 'flag']);
+                                                echo (Client::showEnEnglishLanguageLink())
+                                                    ? Html::a('Canadian English', ['/clinic/language', 'id' => 'en-EN'])
+                                                    : Html::a('Canadian English'); ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if ($showCanadianFrench) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/Canada.png', $options = ['alt' => 'flag']);
+                                                echo (Client::showFranceLanguageLink())
+                                                    ? Html::a('Français Canadien', ['/clinic/language', 'id' => 'fr-FR'])
+                                                    : Html::a('Français Canadien'); ?>
+                                            </div>
+
+                                        <?php endif; ?>
+                                    </li>
+
+                                <?php else: ?>
+                                    <li>
+                                        <?php if ($showCanadianFrench) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/Canada.png', $options = ['alt' => 'flag']);
+                                                echo (Client::showFranceLanguageLink())
+                                                    ? Html::a('Français Canadien', ['/clinic/language', 'id' => 'fr-FR'])
+                                                    : Html::a('Français Canadien'); ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if ($showUsEnglish) : ?>
+                                            <div class="flag-select-box">
+                                                <?= HTML::img(Client::LOGO_PATH_UPLOAD . 'flags/24/United-States.png', $options = ['alt' => 'flag']);
+                                                echo (Client::showUsEnglishLanguageLink())
+                                                    ? Html::a('US ENGLISH', ['/clinic/language', 'id' => 'en-US'])
+                                                    : Html::a('US ENGLISH'); ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>
                 </ul>
             </nav>
         </div>

@@ -75,6 +75,8 @@ class User extends UserActiveRecord
      * @var int Terms of service agreement flag (write-only).
      */
     public $tos;
+	
+	public $countHelpedUsers;
 
     public $itemTable = '{{%podium_auth_item}}';
     /**

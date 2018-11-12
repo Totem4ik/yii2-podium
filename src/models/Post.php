@@ -41,8 +41,8 @@ class Post extends PostActiveRecord
     public static function getLatestPostsForGuests($limit = 5)
     {
         return static::find()->joinWith(['forum' => function ($query) {
-            $query->andWhere([Forum::tableName() . '.visible' => 1])->joinWith(['category' => function ($query) {
-                $query->andWhere([Category::tableName() . '.visible' => 1]);
+            $query->onCondition([Forum::tableName() . '.visible' => 1])->joinWith(['category' => function ($query) {
+                $query->onCondition([Category::tableName() . '.visible' => 1]);
             }]);
         }])->orderBy(['created_at' => SORT_DESC])->limit($limit)->all();
     }

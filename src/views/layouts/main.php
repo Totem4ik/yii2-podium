@@ -199,6 +199,25 @@ $lastActive = \bizley\podium\models\Activity::lastActive();
 //   ?>
 
 </footer>
+
+<!--modal for quiz pages  start-->
+<div id="js-cookie-box" class="cookie-box cookie-box--hide">
+    <button type="button" class="close" id="js-cookie-close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="container">
+        <p><?=Yii::t('common','We use cookies to help us learn about how our platform is used and how we can improve your experience. To
+            learn more please see our');?>
+            <a href="https://<?php echo Yii::$app->site->domain ?>/site/privacy"><?=Yii::t('common','Privacy Policy');?></a> <?=Yii::t('common','and'); ?> <a
+                    href="https://<?php echo Yii::$app->site->domain ?>/site/terms"><?=Yii::t('common','Terms of Use'); ?></a>.</p>
+        <a href="https://<?php echo Yii::$app->site->domain ?>/site/privacy" class="btn btn-primary"><?=Yii::t('common','More Information'); ?></a>
+        <button class="btn btn-primary" id="acceptCookies"><?=Yii::t('common','I Accept'); ?></button>
+    </div>
+</div>
+<!--modal end-->
+
+
+
 <?php $this->endBody() ?>
 
 </body>

@@ -205,7 +205,7 @@ if (strpos($model->content, '<pre class="ql-syntax">') !== false) {
                 <span class="popup-medals" id="#start_modal1">
                 <?php
                 $imageTrophy = $model->author->getImageByPostCount();
-                //                var_dump($model);die;
+//                var_dump($model);die;
                 $files = Client::getImagesFromTrophyFolder();
                 $countStar = 0;
                 if (!empty($imageTrophy)) {
