@@ -75,8 +75,8 @@ class User extends UserActiveRecord
      * @var int Terms of service agreement flag (write-only).
      */
     public $tos;
-	
-	public $countHelpedUsers;
+
+    public $countHelpedUsers;
 
     public $itemTable = '{{%podium_auth_item}}';
     /**
@@ -261,7 +261,7 @@ class User extends UserActiveRecord
      */
     public static function findPostsCount($id)
     {
-       $cache = Podium::getInstance()->podiumCache->getElement('user.postscount', $id);
+        $cache = Podium::getInstance()->podiumCache->getElement('user.postscount', $id);
         $cache=false;
         if ($cache === false) {
             $cache = (new Query)->from(Post::tableName())->where(['author_id' => $id])->count();
@@ -275,6 +275,8 @@ class User extends UserActiveRecord
         $count = $this->getPostsCount();
 
         switch ($count) {
+            case 0:
+                break;
             case $count >= 10 && $count < 50:
                 $image = 'star_1.png';
                 break;
